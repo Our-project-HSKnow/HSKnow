@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_main"
+    android:label="@string/account_main"
+    app:startDestination="@id/account_homeFragment">
+
+    <fragment
+        android:id="@+id/tool"
+        android:name="com.example.hsknows.ToolFragment"
+        android:label="@string/toolbox"
+        tools:layout="@layout/fragment_tool" />
+    <fragment
+        android:id="@+id/bookmark"
+        android:name="com.example.hsknows.BookmarkFragment"
+        android:label="@string/bookmark"
+        tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/message"
+        android:name="com.example.hsknows.MessageFragment"
+        android:label="@string/message"
+        tools:layout="@layout/fragment_message" />
+    <fragment
+        android:id="@+id/settingFragment2"
+        android:name="com.example.hsknows.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/account_homeFragment"
+        android:name="com.example.hsknows.Account_homeFragment"
+        android:label="Account_homeFragment" />
+</navigation>

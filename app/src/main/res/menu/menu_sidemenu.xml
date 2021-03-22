@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/math"
+        android:icon="@drawable/ic_side_math"
+        android:title="@string/math" />
+    <item
+        android:id="@+id/physics"
+        android:icon="@drawable/ic_side_physics"
+        android:title="物理" />
+    <item
+        android:id="@+id/computingScience"
+        android:icon="@drawable/ic_side_computingscience"
+        android:title="计算机科学与技术" />
+    <item
+        android:id="@+id/building"
+        android:icon="@drawable/ic_side_building"
+        android:title="建筑学" />
+    <item
+        android:id="@+id/economics"
+        android:icon="@drawable/ic_side_economic"
+        android:title="经济学" />
+    <item
+        android:id="@+id/electronictechnique"
+        android:icon="@drawable/ic_side_electronicthchnique"
+        android:title="电子机械" />
+    <item
+        android:id="@+id/politics"
+        android:icon="@drawable/ic_side_politics"
+        android:title="政治" ></item>
+</menu>

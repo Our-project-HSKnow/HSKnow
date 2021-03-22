@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="homefragment">HomeFragment</string>
+    <string name="menufragment">MenuFragment</string>
+    <string name="accountfragment">AccountFragment</string>
+
+    <!--辅助功能-->
+    <string name="nightmode">夜间模式</string>
+
+    <string name="bookmark">书签</string>
+    <string name="bookmark_01">bookmark_01</string>
+    <string name="bookmark_02">bookmark_02</string>
+    <string name="bookmark_03">bookmark_03</string>
+
+    <string name="history">历史记录</string>
+    <string name="history_01">history_01</string>
+    <string name="history_02">history_02</string>
+    <string name="history_03">history_03</string>
+
+    <string name="toolbox">工具</string>
+    <string name="message">消息</string>
+    <string name="message_01">message_01</string>
+    <string name="message_02">message_02</string>
+    <string name="message_03">message_03</string>
+
+    <!--底部导航栏-->
+    <string name="account_main">个人主页</string>
+    <string name="menu_main">目录</string>
+    <string name="home_main">主页</string>
+
+    <!--Menu界面中科目选项-->
+    <string name="math">数学</string>
+    <string name="physics">物理</string>
+    <string name="computingscience">计算机科学与技术</string>
+    <string name="building">建筑</string>
+    <string name="economics">经济</string>
+    <string name="electronictechnique">电子技术</string>
+    <string name="politics">政治</string>
+
+    <!--学科-->
+    <!--数学-->
+    <string name="senior_math">高等数学</string>
+    <string name="linear_algebra">线性代数</string>
+    <string name="Discrete_math">离散数学</string>
+    <string name="Mathematical_logic">数理逻辑</string>
+    <string name="Mathematical_analysis">数学分析</string>
+    <!--物理-->
+    <string name="college_physics">大学物理</string>
+    <string name="Astrophysics">天体物理学</string>
+    <!--计算机科学与技术-->
+    <string name="Introduction_to_Computer_Science">计算机导论</string>
+    <string name="data_structure">数据结构</string>
+    <string name="C_Programming">C语言程序设计</string>
+    <string name="DBS">数据库系统</string>
+    <string name="algorithm_design">算法设计</string>
+    <!--建筑学-->
+    <!--经济学-->
+    <!--电子机械-->
+    <!--政治-->
+
+</resources>

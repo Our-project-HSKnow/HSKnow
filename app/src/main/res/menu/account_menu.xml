@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nightmode"
+        android:icon="@drawable/ic_nightmode_sun"
+        android:title="@string/nightmode" />
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/ic_account_bookmark"
+        android:title="@string/bookmark" />
+    <item
+        android:id="@+id/message"
+        android:icon="@drawable/ic_account_message"
+        android:title="@string/message" />
+    <item
+        android:id="@+id/tool"
+        android:icon="@drawable/ic_account_tools"
+        android:title="@string/toolbox" />
+    <item
+        android:id="@+id/account_main"
+        android:icon="@drawable/ic_account_imitial_image"
+        android:title="@string/account_main" />
+</menu>
