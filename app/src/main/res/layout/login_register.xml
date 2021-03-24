@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hsknows.login.Register">
+
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="用户名："
+        android:textSize="20dp"
+        android:layout_gravity="center_vertical"/>
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_name"
+        android:hint="请输入用户名"/>
+
+    <TextView
+        android:id="@+id/text_account"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:text="账号："
+        android:textSize="20dp"
+        android:layout_below="@id/text_name"
+        android:layout_alignLeft="@id/text_name"
+        android:layout_gravity="center_vertical"/>
+
+    <EditText
+        android:id="@+id/edit_account"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_name"
+        android:layout_alignLeft="@id/edit_name"
+        android:hint="请输入账号" />
+
+    <TextView
+        android:id="@+id/text_pwd"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/text_account"
+        android:text="密码："
+        android:textSize="20dp"
+        android:layout_gravity="center_vertical"/>
+
+    <EditText
+        android:id="@+id/edit_pwd"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:layout_toRightOf="@id/text_pwd"
+        android:layout_below="@id/text_account"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/button_comfirm"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_pwd"
+        android:text="确定"/>
+
+    <Button
+        android:id="@+id/button_return"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/button_comfirm"
+        android:layout_below="@id/edit_pwd"
+        android:text="返回"/>
+
+
+</RelativeLayout>

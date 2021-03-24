@@ -10,12 +10,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,6 +38,16 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        ImageView account_image = (ImageView)findViewById(R.id.account_image);
+        account_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AccountActivity.this, "Login", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AccountActivity.this, com.example.hsknows.login.MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -71,5 +83,7 @@ public class AccountActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
     }
 }

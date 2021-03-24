@@ -2,13 +2,20 @@ package com.example.hsknows.accountFragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import q.rorbin.verticaltablayout.VerticalTabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +32,12 @@ public class BookmarkFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View inflate;
+    private VerticalTabLayout verticalTabLayout;
+    private List<String> datas = new ArrayList<String>();
+    private ViewPager2 viewPager2;
+
 
     public BookmarkFragment() {
         // Required empty public constructor
@@ -61,6 +74,14 @@ public class BookmarkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.account_bookmark, container, false);
+        View view = inflater.inflate(R.layout.account_bookmark, container, false);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        viewPager2 = inflate.findViewById(R.id.bookmark_viewpager);
     }
 }
