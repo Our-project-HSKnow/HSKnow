@@ -5,12 +5,21 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.hsknows.accountFragment.BookmarkFragment;
+import com.example.hsknows.accountFragment.HistoryFragment;
+import com.example.hsknows.accountFragment.MessageFragment;
+import com.example.hsknows.accountFragment.SettingFragment;
 import com.example.myapplication.R;
 
 /**
@@ -28,6 +37,8 @@ public class Account_homeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
 
     public Account_homeFragment() {
         // Required empty public constructor
@@ -68,4 +79,15 @@ public class Account_homeFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+
+
+    }
+
+
 }

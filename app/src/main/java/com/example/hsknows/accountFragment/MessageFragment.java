@@ -1,4 +1,4 @@
-package com.example.hsknows;
+package com.example.hsknows.accountFragment;
 
 import android.os.Bundle;
 
@@ -61,6 +61,6 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message, container, false);
+        return inflater.inflate(R.layout.account_message, container, false);
     }
 }

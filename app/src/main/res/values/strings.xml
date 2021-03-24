@@ -8,6 +8,7 @@
 
     <!--辅助功能-->
     <string name="nightmode">夜间模式</string>
+    <string name="setting">设置</string>
 
     <string name="bookmark">书签</string>
     <string name="bookmark_01">bookmark_01</string>
@@ -59,5 +60,21 @@
     <!--经济学-->
     <!--电子机械-->
     <!--政治-->
+
+
+    <!--设置-->
+    <string name="setting_appearance">外观</string>
+    <string name="setting_theme_color">主题色</string>
+    <string name="setting_font_size">字体大小</string>
+    <string name="setting_nightmode">夜间模式</string>
+
+    <string name="setting_account">账户</string>
+    <string name="setting_name">用户名</string>
+    <string name="setting_secretary">密码</string>
+    <string name="setting_image">头像</string>
+
+    <string name="setting_about">关于</string>
+    <string name="setting_version">版本</string>
+    <string name="setting_feedback">反馈</string>
 
 </resources>

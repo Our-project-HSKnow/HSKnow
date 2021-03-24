@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nightmode"
-        android:icon="@drawable/ic_nightmode_sun"
-        android:title="@string/nightmode" />
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_account_setting"
+        android:title="@string/setting" />
     <item
         android:id="@+id/bookmark"
         android:icon="@drawable/ic_account_bookmark"

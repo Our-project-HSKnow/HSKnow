@@ -8,26 +8,31 @@
 
     <fragment
         android:id="@+id/tool"
-        android:name="com.example.hsknows.ToolFragment"
+        android:name="com.example.hsknows.accountFragment.ToolFragment"
         android:label="@string/toolbox"
-        tools:layout="@layout/fragment_tool" />
+        tools:layout="@layout/account_toolbox" />
     <fragment
         android:id="@+id/bookmark"
-        android:name="com.example.hsknows.BookmarkFragment"
+        android:name="com.example.hsknows.accountFragment.BookmarkFragment"
         android:label="@string/bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/account_bookmark" />
     <fragment
         android:id="@+id/message"
-        android:name="com.example.hsknows.MessageFragment"
+        android:name="com.example.hsknows.accountFragment.MessageFragment"
         android:label="@string/message"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/account_message" />
     <fragment
-        android:id="@+id/settingFragment2"
-        android:name="com.example.hsknows.SettingFragment"
+        android:id="@+id/setting"
+        android:name="com.example.hsknows.accountFragment.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/account_setting" />
     <fragment
         android:id="@+id/account_homeFragment"
         android:name="com.example.hsknows.Account_homeFragment"
         android:label="Account_homeFragment" />
+    <fragment
+        android:id="@+id/history"
+        android:name="com.example.hsknows.accountFragment.HistoryFragment"
+        android:label="account_history"
+        tools:layout="@layout/account_history" />
 </navigation>

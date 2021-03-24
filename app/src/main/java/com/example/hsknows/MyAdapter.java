@@ -1,28 +1,51 @@
 package com.example.hsknows;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Lifecycle;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
 
 import java.util.List;
 
-public class MyAdapter extends FragmentStateAdapter {
-    List<Fragment> fragments;
-    public MyAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<Fragment> fragments) {
-        super(fragmentManager, lifecycle);
-        this.fragments = fragments;
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+    //数据源
+    private List<String> mList;
+
+    public MyAdapter(List<String> list) {
+        mList = list;
     }
 
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        return fragments.get(position);
-    }
-
+    //返回item个数
     @Override
     public int getItemCount() {
-        return fragments.size();
+        return mList.size() ;
+    }
+
+    //创建ViewHolder
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.setting_item, parent, false));
+    }
+
+    //填充视图
+    @Override
+    public void onBindViewHolder(@NonNull final MyAdapter.ViewHolder holder, final int position) {
+        holder.mView.setText(mList.get(position));
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView mView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView.findViewById(R.id.text_view);
+        }
     }
 }

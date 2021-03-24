@@ -1,26 +1,15 @@
 package com.example.hsknows;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-
-import com.example.hsknows.math.MathFragment1;
 import com.example.myapplication.R;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,12 +107,7 @@ public class Menu_mainFragment extends Fragment {
             case 7:
                 break;
         }
-        for (int i=0; i<titles.size(); i++){
-            fragments.add(MathFragment1.newInstance(mParam1, mParam2));
-        }
 
-        tabLayout = getActivity().findViewById(R.id.math_tablelayout);
-        viewPager2 = getActivity().findViewById(R.id.viewpager);
 
     }
 }
