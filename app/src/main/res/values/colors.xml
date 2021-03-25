@@ -22,4 +22,7 @@
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
+    <color name="edittext_line">#f8f4ed</color>
+    <color name="edittext_focus_line">#373834</color>
+
 </resources>

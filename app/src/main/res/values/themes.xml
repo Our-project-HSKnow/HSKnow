@@ -17,4 +17,13 @@
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/Font_color_black</item>
     </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/edittext_line</item>
+        <item name="colorControlActivated">@color/edittext_focus_line</item>
+    </style>
+    <style name="MyEditText_Dark" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/edittext_focus_line</item>
+        <item name="colorControlActivated">@color/edittext_line</item>
+    </style>
 </resources>

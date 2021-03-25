@@ -21,7 +21,6 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_register);
     //向数据库插入数据
         final EditText edit_name = (EditText) findViewById(R.id.edit_name);
         final EditText edit_account = (EditText) findViewById(R.id.edit_account);

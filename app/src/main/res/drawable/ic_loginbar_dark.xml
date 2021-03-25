@@ -2,14 +2,14 @@
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/white" />
+    <solid android:color="#373834" />
     <!--填充色-->
-    <stroke android:width="3dp"
+    <stroke android:width="0dp"
         android:color="@color/white"
         />
     <!--边框-->
     <corners
-        android:radius="20dp"
+        android:radius="10dp"
         />
     <!--圆角-->
 </shape>
