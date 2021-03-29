@@ -67,7 +67,7 @@ public class AccountActivity extends AppCompatActivity {
                         navController.navigate(R.id.setting);
                         break;
                     case R.id.bookmark:
-                        navController.navigate(R.id.bookmark);
+                        navController.navigate(R.id.account_history_bookmark);
                         break;
                     case R.id.tool:
                         navController.navigate(R.id.tool);

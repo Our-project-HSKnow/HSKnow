@@ -6,28 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.hsknows.accountFragment.BookmarkFragment"
-
-
     >
 
-    <!--<q.rorbin.verticaltablayout.VerticalTabLayout
-        android:id="@+id/tabLayout_sort"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        app:tab_height="47dp"
-        app:tab_mode="scrollable"
-        app:indicator_color="@color/text_red"
-        android:background="@color/bg_white"
-        tools:ignore="MissingConstraints">
-
-    </q.rorbin.verticaltablayout.VerticalTabLayout>-->
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/bookmark_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

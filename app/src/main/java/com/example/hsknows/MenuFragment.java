@@ -1,32 +1,35 @@
 package com.example.hsknows;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 
+import android.text.TextUtils;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.navigation.NavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +52,12 @@ public class MenuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ImageView ivSearch, ivClose;
+    private EditText edSearch;
+    private RelativeLayout laySearch;
+    private AutoTransition autoTransition;
+    private int width;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -89,48 +98,195 @@ public class MenuFragment extends Fragment {
         return view;
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        NavigationView navigationView = (NavigationView)getActivity().findViewById(R.id.sidenavigationview);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+        //科目卡片布局
+        String[] subject = {"math", "physics", "computerscience", "building","economic", "electronictechnique", "politics"};
+        for (int i = 0; i < subject.length-1; i++){
+            initCard(subject[i]);
+        }
+
+        //顶部搜索框
+        initView();
+    }
+    private void initCard(String kind_of_subject) {
+        String[] groupString;
+        String[][] childString;
+        View parent = View.inflate(getActivity(), R.layout.menu_parent_layout_math, null);
+        switch (kind_of_subject){
+            case "math":
+                groupString = new String[]{" "};
+                childString = new String[][]{{"高等数学", "线性代数", "离散数学", "数理逻辑", "数学分析"}};
+                MyExpandableListView expandableListView_math = (MyExpandableListView)getActivity().findViewById(R.id.math_list);
+                expandableListView_math.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                break;
+            case "physics":
+
+                groupString = new String[]{" "};
+                childString = new String[][]{{"大学物理", "天体物理学"}};
+                MyExpandableListView expandableListView_physics = (MyExpandableListView)getActivity().findViewById(R.id.physics_list);
+                expandableListView_physics.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                break;
+            case "computerscience":
+
+                groupString = new String[]{" "};
+                childString = new String[][]{{"计算机导论","数据结构","C语言程序设计","数据库系统","算法设计"}};
+                MyExpandableListView expandableListView_cs = (MyExpandableListView)getActivity().findViewById(R.id.CS_list);
+                expandableListView_cs.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                break;
+            case "building":
+                groupString = new String[]{" "};
+                childString = new String[][]{{"建设中"}};
+                MyExpandableListView expandableListView_building = (MyExpandableListView)getActivity().findViewById(R.id.building_list);
+                expandableListView_building.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+
+                break;
+            case "economic":
+                groupString = new String[]{" "};
+                childString = new String[][]{{"建设中"}};
+                MyExpandableListView expandableListView_ecomomic = (MyExpandableListView)getActivity().findViewById(R.id.economics_list);
+                expandableListView_ecomomic.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+
+                break;
+            case "electronictechnique":
+                groupString = new String[]{" "};
+                childString = new String[][]{{"建设中"}};
+                MyExpandableListView expandableListView_et = (MyExpandableListView)getActivity().findViewById(R.id.electronictechnique_list);
+                expandableListView_et.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+
+                break;
+            case "politics":
+                groupString = new String[]{" "};
+                childString = new String[][]{{"建设中"}};
+                MyExpandableListView expandableListView_politics = (MyExpandableListView)getActivity().findViewById(R.id.politics_list);
+                expandableListView_politics.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+
+                break;
+            default:
+                Log.e("MainActivity", "subject didn't be totally initialize in the function initcard");
+        }
+    }
+
+
+    private void initView() {
+        laySearch = (RelativeLayout) getActivity().findViewById(R.id.menu_header);
+        ivSearch = (ImageView) getActivity().findViewById(R.id.iv_search);
+        ivClose = (ImageView) getActivity().findViewById(R.id.iv_close);
+        edSearch = (EditText) getActivity().findViewById(R.id.ed_search);
+
+        ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.math:
-                        DrawerLayoutSelectedItemId = 1;
-                        break;
-                    case R.id.physics:
-                        DrawerLayoutSelectedItemId = 2;
-                        break;
-                    case R.id.computingScience:
-                        DrawerLayoutSelectedItemId = 3;
-                        break;
-                    case R.id.building:
-                        DrawerLayoutSelectedItemId = 4;
-                        break;
-                    case R.id.economics:
-                        DrawerLayoutSelectedItemId = 5;
-                        break;
-                    case R.id.electronictechnique:
-                        DrawerLayoutSelectedItemId = 6;
-                        break;
-                    case R.id.politics:
-                        DrawerLayoutSelectedItemId = 7;
-                        break;
+            public void onClick(View v) {
+                initExpand();
+            }
+        });
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initClose();
+            }
+        });
+
+
+        WindowManager manager = getActivity().getWindowManager();
+        DisplayMetrics metrics = new DisplayMetrics();
+        manager.getDefaultDisplay().getMetrics(metrics);
+        width = metrics.widthPixels;  //获取屏幕的宽度 像素
+
+        /**
+         * 输入法键盘的搜索监听
+         */
+        edSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String city = edSearch.getText().toString();
+                    if (!TextUtils.isEmpty(city)) {
+                        Toast.makeText(getActivity(),city,Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(),"请输入内容",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 return false;
             }
         });
+    }
 
-        DrawerLayout drawerLayout = (DrawerLayout)getActivity().findViewById(R.id.menu_drawerlayout) ;
-        ImageView sidemenu_io = (ImageView)getActivity().findViewById(R.id.sidemenu_io);
-        sidemenu_io.setOnClickListener(new View.OnClickListener() {
+
+    /*设置伸展状态时的布局*/
+    @SuppressLint("ClickableViewAccessibility")
+    public void initExpand() {
+
+        edSearch.setVisibility(View.VISIBLE);
+        ivClose.setVisibility(View.VISIBLE);
+        ConstraintLayout.LayoutParams LayoutParams = (ConstraintLayout.LayoutParams) laySearch.getLayoutParams();
+        LayoutParams.width = dip2px(px2dip(width)-40);
+        LayoutParams.setMargins(dip2px(0), dip2px(0), dip2px(0), dip2px(0));
+        laySearch.setPadding(14,0,14,0);
+        laySearch.setLayoutParams(LayoutParams);
+
+        edSearch.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+            public boolean onTouch(View v, MotionEvent event) {
+                edSearch.setFocusable(true);
+                edSearch.setFocusableInTouchMode(true);
+                return false;
             }
         });
+        //开始动画
+        beginDelayedTransition(laySearch);
+
+    }
+
+    /*设置收缩状态时的布局*/
+    private void initClose() {
+        edSearch.setVisibility(View.GONE);
+        edSearch.setText("");
+        ivClose.setVisibility(View.GONE);
+
+        ConstraintLayout.LayoutParams LayoutParams = (ConstraintLayout.LayoutParams) laySearch.getLayoutParams();
+        LayoutParams.width = dip2px(48);
+        LayoutParams.height = dip2px(48);
+        LayoutParams.setMargins(dip2px(0), dip2px(0), dip2px(0), dip2px(0));
+        laySearch.setLayoutParams(LayoutParams);
+
+        //隐藏键盘
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+        edSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edSearch.setCursorVisible(true);
+            }
+        });
+        //开始动画
+        beginDelayedTransition(laySearch);
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private void beginDelayedTransition(ViewGroup view) {
+        autoTransition = new AutoTransition();
+        autoTransition.setDuration(500);
+        TransitionManager.beginDelayedTransition(view,autoTransition);
+    }
+
+    // dp 转成 px
+    private int dip2px(float dpVale) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpVale * scale + 0.5f);
+    }
+
+    // px 转成 dp
+    private int px2dip(float pxValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
 }
+

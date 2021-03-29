@@ -12,16 +12,6 @@
         android:label="@string/toolbox"
         tools:layout="@layout/account_toolbox" />
     <fragment
-        android:id="@+id/bookmark"
-        android:name="com.example.hsknows.accountFragment.BookmarkFragment"
-        android:label="@string/bookmark"
-        tools:layout="@layout/account_bookmark" />
-    <fragment
-        android:id="@+id/message"
-        android:name="com.example.hsknows.accountFragment.MessageFragment"
-        android:label="@string/message"
-        tools:layout="@layout/account_message" />
-    <fragment
         android:id="@+id/setting"
         android:name="com.example.hsknows.accountFragment.SettingFragment"
         android:label="fragment_setting"
@@ -31,8 +21,13 @@
         android:name="com.example.hsknows.Account_homeFragment"
         android:label="Account_homeFragment" />
     <fragment
-        android:id="@+id/history"
-        android:name="com.example.hsknows.accountFragment.HistoryFragment"
-        android:label="account_history"
-        tools:layout="@layout/account_history" />
+        android:id="@+id/account_history_bookmark"
+        android:name="com.example.hsknows.accountFragment.Account_history_bookmarkFragment"
+        android:label="account_history_bookmark"
+        tools:layout="@layout/account_history_bookmark" />
+    <fragment
+        android:id="@+id/message"
+        android:name="com.example.hsknows.accountFragment.MessageFragment"
+        android:label="account_message"
+        tools:layout="@layout/account_message" />
 </navigation>

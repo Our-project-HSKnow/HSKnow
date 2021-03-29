@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookmark_history"
+    app:startDestination="@id/bookmarkFragment">
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.hsknows.accountFragment.HistoryFragment"
+        android:label="account_history"
+        tools:layout="@layout/account_history" />
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.example.hsknows.accountFragment.BookmarkFragment"
+        android:label="account_bookmark"
+        tools:layout="@layout/account_bookmark" />
+</navigation>
