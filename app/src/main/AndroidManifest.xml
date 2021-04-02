@@ -10,8 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name="com.example.hsknows.Menu_main_Activity"/>
         <activity android:name="com.example.hsknows.AccountActivity" />
-        <activity android:name="com.example.hsknows.login.MainActivity"/>
+        <activity android:name="com.example.hsknows.login.MainActivity" />
         <activity
             android:name="com.example.hsknows.MainActivity"
             android:windowSoftInputMode="adjustResize">

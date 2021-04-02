@@ -2,13 +2,18 @@ package com.example.hsknows.accountFragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +66,21 @@ public class Account_history_bookmarkFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.account_history_bookmark, container, false);
+        View view =  inflater.inflate(R.layout.account_history_bookmark, container, false);
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        com.getbase.floatingactionbutton.FloatingActionButton history_floatingbutton = getActivity().findViewById(R.id.history_floatingbutton);
+        com.getbase.floatingactionbutton.FloatingActionButton bookmark_floatingbuttonn = getActivity().findViewById(R.id.bookmark_floatingbutton);
+        history_floatingbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO : floatingbutton 的点击效果——直接在代码加入卡片及更新内容
+            }
+        });
+
     }
 }

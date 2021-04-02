@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,23 +38,12 @@ public class MainActivity extends AppCompatActivity {
         Button button_exit = (Button) findViewById(R.id.log_button_exit);
         CardView login_card = (CardView)findViewById(R.id.log_card);
 
+
         //注册界面
         final EditText register_name = (EditText) findViewById(R.id.register_name);
         final EditText register_account = (EditText) findViewById(R.id.register_account);
         final EditText register_password = (EditText) findViewById(R.id.register_password);
         Button button_register = (Button) findViewById(R.id.button_registe);
-
-        //动画
-        ObjectAnimator objectAnimator_button = ObjectAnimator.ofFloat(button_tran_log, "rotation", 225f);
-        objectAnimator_button.setDuration(800);
-        ObjectAnimator objectAnimator_layout = ObjectAnimator.ofFloat(login_card, "alpha", 1f, 0f);
-        objectAnimator_layout.setDuration(800);
-
-        //反转动画
-        ObjectAnimator reversal_objectAnimator_button = ObjectAnimator.ofFloat(button_tran_log, "rotation", -225f);
-        reversal_objectAnimator_button.setDuration(800);
-        ObjectAnimator reversal_objectAnimator_layout = ObjectAnimator.ofFloat(login_card, "alpha", 0f, 1f);
-        reversal_objectAnimator_layout.setDuration(800);
 
         LitePal.getDatabase();
 
@@ -88,28 +78,9 @@ public class MainActivity extends AppCompatActivity {
                         state[0] = true;
                         finish();
                     }
-
-                }
-
-
-            }
-        });
-
-        button_tran_log.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (state[1] == true){
-                    objectAnimator_button.start();
-                    objectAnimator_layout.start();
-                    state[1] = false;
-                }else{
-                    reversal_objectAnimator_button.start();
-                    reversal_objectAnimator_layout.start();
-                    state[1] = true;
                 }
             }
         });
-
 
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,11 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 user.setPassword(register_password.getText().toString());
                 user.save();
                 Toast.makeText(com.example.hsknows.login.MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
-
-                reversal_objectAnimator_button.start();
-                reversal_objectAnimator_layout.start();
             }
         });
+
 
     }
 }

@@ -1,26 +1,13 @@
 package com.example.hsknows;
-
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.example.hsknows.accountFragment.BookmarkFragment;
-import com.example.hsknows.accountFragment.HistoryFragment;
-import com.example.hsknows.accountFragment.MessageFragment;
-import com.example.hsknows.accountFragment.SettingFragment;
 import com.example.myapplication.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +25,9 @@ public class Account_homeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private MotionLayout motionLayout;
 
+    private View view;//定义view用来设置fragment的layout
 
     public Account_homeFragment() {
         // Required empty public constructor
@@ -75,19 +64,9 @@ public class Account_homeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.account_main_fragment, container, false);
+        view = inflater.inflate(R.layout.account_main_fragment, container, false);
 
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-
-
-    }
-
-
 }
+

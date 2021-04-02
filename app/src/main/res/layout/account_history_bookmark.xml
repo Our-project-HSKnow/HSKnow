@@ -6,22 +6,36 @@
     android:layout_height="match_parent"
     tools:context="com.example.hsknows.accountFragment.Account_history_bookmarkFragment">
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/bookmark_history_floatingbutton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="9dp"
+        app:fab_addButtonColorNormal="@color/background"
+        app:fab_icon="@drawable/ic_floatingmenu_add"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_labelsPosition="left"
+        app:fab_size="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.tabs.TabItem
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/history_floatingbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bookmark" />
+            app:fab_colorNormal="@color/background"
+            app:fab_icon="@drawable/ic_account_history"
+            app:fab_size="mini"
+            app:fab_title="@string/history" />
 
-        <com.google.android.material.tabs.TabItem
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bookmark_floatingbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/history" />
-
-    </com.google.android.material.tabs.TabLayout>
+            app:fab_colorNormal="@color/background"
+            app:fab_icon="@drawable/ic_account_bookmark"
+            app:fab_size="mini"
+            app:fab_title="@string/bookmark" />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -85,4 +85,7 @@
     <string name="security">密码</string>
     <string name="forgetpassword">忘记密码</string>
 
+    <!--工具箱-->
+    <string name="count_tool">计算工具</string>
+
 </resources>

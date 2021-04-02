@@ -3,6 +3,7 @@ package com.example.hsknows;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -24,6 +25,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -123,6 +125,14 @@ public class MenuFragment extends Fragment {
                 childString = new String[][]{{"高等数学", "线性代数", "离散数学", "数理逻辑", "数学分析"}};
                 MyExpandableListView expandableListView_math = (MyExpandableListView)getActivity().findViewById(R.id.math_list);
                 expandableListView_math.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                expandableListView_math.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             case "physics":
 
