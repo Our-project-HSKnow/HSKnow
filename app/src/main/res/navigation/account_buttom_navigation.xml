@@ -18,7 +18,7 @@
         tools:layout="@layout/account_setting" />
     <fragment
         android:id="@+id/account_homeFragment"
-        android:name="com.example.hsknows.Account_homeFragment"
+        android:name="com.example.hsknows.accountFragment.Account_homeFragment"
         android:label="Account_homeFragment" />
     <fragment
         android:id="@+id/account_history_bookmark"

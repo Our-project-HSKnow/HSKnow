@@ -82,12 +82,13 @@
 
     <ImageButton
         android:id="@+id/menu_main_back_button"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/ic_baseline_navigate_before_24"
+        android:background="@android:color/transparent"
+        android:foreground="@drawable/ic_baseline_navigate_before_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.motion.widget.MotionLayout>
 

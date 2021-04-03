@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layoutDescription="@xml/account_main_fragment_scene"
-    tools:context="com.example.hsknows.Account_homeFragment">
+    tools:context="com.example.hsknows.accountFragment.Account_homeFragment">
 
 
     <androidx.cardview.widget.CardView

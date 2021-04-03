@@ -1,4 +1,4 @@
-package com.example.hsknows;
+package com.example.hsknows.MenuFragment;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -31,6 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsknows.MyExpandListAdapter;
+import com.example.hsknows.MyExpandableListView;
 import com.example.myapplication.R;
 
 /**

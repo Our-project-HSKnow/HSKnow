@@ -1,9 +1,13 @@
 package com.example.hsknows.login;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,6 +27,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final boolean[] state = {false, true};
+
+    private Animator mShowAnim;     // 显示视图的揭露动画
+    private Animator mHideAnim;     // 隐藏视图的揭露动画
+
+    Button button_login;
+    Button button_register;
+    Button button_exit;
+    Button close_button;
+    FloatingActionButton button_tran_log;
+    CardView login_card;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,20 +48,19 @@ public class MainActivity extends AppCompatActivity {
         //登陆界面
         final EditText editText_name=(EditText) findViewById(R.id.edittext_name);
         final EditText editText_pwd=(EditText) findViewById(R.id.edittext_pwd);
-        Button button_login = (Button) findViewById(R.id.button_login);
-        FloatingActionButton button_tran_log = (FloatingActionButton) findViewById(R.id.button_tran_log);
-        Button button_exit = (Button) findViewById(R.id.log_button_exit);
-        CardView login_card = (CardView)findViewById(R.id.log_card);
-
+        button_login = (Button) findViewById(R.id.button_login);
+        button_tran_log = (FloatingActionButton) findViewById(R.id.button_tran_log);
+        button_exit = (Button) findViewById(R.id.log_button_exit);
+        login_card = (CardView)findViewById(R.id.log_card);
 
         //注册界面
         final EditText register_name = (EditText) findViewById(R.id.register_name);
         final EditText register_account = (EditText) findViewById(R.id.register_account);
         final EditText register_password = (EditText) findViewById(R.id.register_password);
-        Button button_register = (Button) findViewById(R.id.button_registe);
+        button_register = (Button) findViewById(R.id.button_registe);
+
 
         LitePal.getDatabase();
-
 
         final List<com.example.hsknows.login.userInformation> allUser = LitePal.findAll(com.example.hsknows.login.userInformation.class);
 
@@ -93,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(com.example.hsknows.login.MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
+
 }

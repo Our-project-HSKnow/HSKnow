@@ -16,8 +16,6 @@ import com.example.myapplication.R;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel mViewModel;
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -31,8 +29,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        // TODO: Use the ViewModel
     }
 
 }

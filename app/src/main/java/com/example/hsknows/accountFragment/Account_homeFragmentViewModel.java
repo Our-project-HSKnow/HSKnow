@@ -1,4 +1,4 @@
-package com.example.hsknows;
+package com.example.hsknows.accountFragment;
 
 import androidx.lifecycle.ViewModel;
 

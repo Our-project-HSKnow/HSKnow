@@ -9,127 +9,6 @@
     tools:context="com.example.hsknows.login.MainActivity">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/register_card"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="140dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/register_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/register_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/registe"
-                android:textColor="@color/Font_color_black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/register_name"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="30dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:theme="@style/MyEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@string/username"
-                app:layout_constraintBottom_toTopOf="@+id/register_name"
-                app:layout_constraintStart_toStartOf="@+id/register_name" />
-
-            <EditText
-                android:id="@+id/register_account"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="30dp"
-                android:inputType="number"
-                android:theme="@style/MyEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register_name" />
-
-            <TextView
-                android:id="@+id/account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@string/account"
-                app:layout_constraintBottom_toTopOf="@+id/register_account"
-                app:layout_constraintStart_toStartOf="@+id/register_account" />
-
-            <EditText
-                android:id="@+id/register_password"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="30dp"
-                android:inputType="textPassword"
-                android:theme="@style/MyEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/register_account" />
-
-            <TextView
-                android:id="@+id/password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@string/security"
-                app:layout_constraintBottom_toTopOf="@+id/register_password"
-                app:layout_constraintStart_toStartOf="@+id/register_password" />
-
-            <Button
-                android:id="@+id/button_registe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/ic_loginbar_dark"
-                android:text="@string/registe"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/password" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
     <Button
         android:id="@+id/log_button_exit"
         android:layout_width="45dp"
@@ -146,10 +25,10 @@
         android:layout_width="300dp"
         android:layout_height="400dp"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/register_card"
-        app:layout_constraintEnd_toEndOf="@+id/register_card"
-        app:layout_constraintStart_toStartOf="@+id/register_card"
-        app:layout_constraintTop_toTopOf="@+id/register_card">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/log_layout"
@@ -173,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="95dp"
                 android:layout_marginEnd="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -235,11 +114,137 @@
                 android:id="@+id/forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/forgetpassword"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/register_card"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:rotationY="0"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/log_card"
+        app:layout_constraintStart_toStartOf="@+id/log_card"
+        app:layout_constraintTop_toTopOf="@+id/log_card">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/register_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/edittext_focus_line">
+
+            <TextView
+                android:id="@+id/register_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/registe"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/register_name"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="78dp"
+                android:layout_marginEnd="30dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:theme="@style/MyEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/username"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/register_name"
+                app:layout_constraintStart_toStartOf="@+id/register_name"
+                app:layout_constraintTop_toBottomOf="@+id/register_title" />
+
+            <EditText
+                android:id="@+id/register_account"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="30dp"
+                android:inputType="number"
+                android:theme="@style/MyEditText"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_name" />
+
+            <TextView
+                android:id="@+id/account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/account"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/register_account"
+                app:layout_constraintStart_toStartOf="@+id/register_account" />
+
+            <EditText
+                android:id="@+id/register_password"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="30dp"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:theme="@style/MyEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/register_account" />
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/security"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/register_password"
+                app:layout_constraintStart_toStartOf="@+id/register_password" />
+
+            <Button
+                android:id="@+id/button_registe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/ic_loginbar_light"
+                android:text="@string/registe"
+                android:textColor="@color/edittext_focus_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -251,8 +256,8 @@
         android:layout_height="55dp"
         android:clickable="true"
         app:backgroundTint="@color/edittext_focus_line"
-        app:layout_constraintEnd_toEndOf="@+id/register_card"
-        app:layout_constraintTop_toTopOf="@+id/register_card"
+        app:layout_constraintEnd_toEndOf="@+id/log_card"
+        app:layout_constraintTop_toTopOf="@+id/log_card"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
 

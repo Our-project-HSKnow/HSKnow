@@ -1,4 +1,4 @@
-package com.example.hsknows;
+package com.example.hsknows.accountFragment;
 import android.os.Bundle;
 
 import androidx.constraintlayout.motion.widget.MotionLayout;

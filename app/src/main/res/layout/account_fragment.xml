@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/account_fragment_scene"
-    tools:context="com.example.hsknows.AccountActivity">
+    tools:context="com.example.hsknows.accountFragment.AccountActivity">
 
     <Button
         android:id="@+id/account_back_button"
