@@ -5,15 +5,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.hsknows.CardImageInfor;
+import com.example.hsknows.MyRecyclerAdapter;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +42,9 @@ public class Account_history_bookmarkFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    int kind = 1; // 1为历史记录 2为书签
 
     public Account_history_bookmarkFragment() {
         // Required empty public constructor
@@ -67,6 +82,10 @@ public class Account_history_bookmarkFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.account_history_bookmark, container, false);
+
+        recyclerView = view.findViewById(R.id.account_history_bookmark_recyclerview);
+        initDatas(kind);
+        initView();
         return view;
     }
 
@@ -78,9 +97,56 @@ public class Account_history_bookmarkFragment extends Fragment {
         history_floatingbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : floatingbutton 的点击效果——直接在代码加入卡片及更新内容
+                if (kind == 2)
+                {
+                    kind = 1;
+                    initView();
+                    initDatas(kind);
+                }
+            }
+        });
+        bookmark_floatingbuttonn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (kind == 1)
+                {
+                    kind = 2;
+                    initView();
+                    recyclerView.setItemAnimator(new SlideInUpAnimator());
+                    recyclerView.getItemAnimator().setAddDuration(300);
+                    recyclerView.getItemAnimator().setAddDuration(300);
+                    initDatas(kind);
+                }
+            }
+        });
+    }
+
+    private void initView() {
+        recyclerView = (RecyclerView)getActivity(). findViewById(R.id.account_history_bookmark_recyclerview);
+    }
+
+    private void initDatas(int kind) {
+        //添加数据
+        List<CardImageInfor> list = new ArrayList<>();
+        list.add(new CardImageInfor("Title 1", "BLGS", new ArrayList<>(), kind));
+        list.add(new CardImageInfor("Title 2", "BLGS", new ArrayList<>(), kind));
+        list.add(new CardImageInfor("Title 3", "BLGS", new ArrayList<>(), kind));
+
+        //设置列表显示方式
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //设置列表默认动画效果
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //绑定适配器
+        MyRecyclerAdapter myAdapter = new MyRecyclerAdapter(list);
+        recyclerView.setAdapter(myAdapter);
+        //列表点击事件
+        myAdapter.setOnItemClickLitener(new MyRecyclerAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click"+ position +"item", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
 }

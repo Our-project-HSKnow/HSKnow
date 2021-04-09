@@ -110,7 +110,7 @@ public class MenuFragment extends Fragment {
 
         //科目卡片布局
         String[] subject = {"math", "physics", "computerscience", "building","economic", "electronictechnique", "politics"};
-        for (int i = 0; i < subject.length-1; i++){
+        for (int i = 0; i < subject.length; i++){
             initCard(subject[i]);
         }
 
