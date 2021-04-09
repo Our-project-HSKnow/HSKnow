@@ -79,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
         account = (TextView)findViewById(R.id.account);
         passward = (TextView)findViewById(R.id.password);
 
-        ChangeVisibility(false);
-
-
         LitePal.getDatabase();
 
         final List<com.example.hsknows.login.userInformation> allUser = LitePal.findAll(com.example.hsknows.login.userInformation.class);
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("MainActivity",editText_pwd.getText().toString());
                     if(user.getUsername().equals(editText_name.getText().toString())&&user.getPassword().equals(editText_pwd.getText().toString())){
                         Toast.makeText(com.example.hsknows.login.MainActivity.this,"登陆成功",
-                        Toast.LENGTH_SHORT).show();
+                                Toast.LENGTH_SHORT).show();
                         state[0] = true;
                         finish();
                     }
