@@ -2,25 +2,19 @@ package com.example.hsknows.accountFragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.hsknows.CardImageInfor;
-import com.example.hsknows.MyRecyclerAdapter;
+import com.example.hsknows.CardImageInfor_historybookmark;
+import com.example.hsknows.MyRecyclerAdapter_historybookmark;
 import com.example.myapplication.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,20 +121,20 @@ public class Account_history_bookmarkFragment extends Fragment {
 
     private void initDatas(int kind) {
         //添加数据
-        List<CardImageInfor> list = new ArrayList<>();
-        list.add(new CardImageInfor("Title 1", "BLGS", new ArrayList<>(), kind));
-        list.add(new CardImageInfor("Title 2", "BLGS", new ArrayList<>(), kind));
-        list.add(new CardImageInfor("Title 3", "BLGS", new ArrayList<>(), kind));
+        List<CardImageInfor_historybookmark> list = new ArrayList<>();
+        list.add(new CardImageInfor_historybookmark("Title 1", "BLGS", new ArrayList<>(), kind));
+        list.add(new CardImageInfor_historybookmark("Title 2", "BLGS", new ArrayList<>(), kind));
+        list.add(new CardImageInfor_historybookmark("Title 3", "BLGS", new ArrayList<>(), kind));
 
         //设置列表显示方式
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //设置列表默认动画效果
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //绑定适配器
-        MyRecyclerAdapter myAdapter = new MyRecyclerAdapter(list);
+        MyRecyclerAdapter_historybookmark myAdapter = new MyRecyclerAdapter_historybookmark(list);
         recyclerView.setAdapter(myAdapter);
         //列表点击事件
-        myAdapter.setOnItemClickLitener(new MyRecyclerAdapter.OnItemClickLitener() {
+        myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_historybookmark.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getActivity(), "click"+ position +"item", Toast.LENGTH_SHORT).show();

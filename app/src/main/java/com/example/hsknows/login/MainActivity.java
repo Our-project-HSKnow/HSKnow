@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         button_tran_log = (FloatingActionButton) findViewById(R.id.button_tran_log);
         login_card = (CardView)findViewById(R.id.log_card);
         log_username = (TextView)findViewById(R.id.log_username);
-        log_passward = (TextView)findViewById(R.id.log_passward);
+        log_passward = (TextView)findViewById(R.id.log_password);
 
         //注册界面
         register_card = (CardView)findViewById(R.id.register_card);

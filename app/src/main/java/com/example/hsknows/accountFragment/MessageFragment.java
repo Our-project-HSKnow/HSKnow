@@ -3,12 +3,23 @@ package com.example.hsknows.accountFragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.hsknows.CardImageInfor_historybookmark;
+import com.example.hsknows.CardImageInfor_message;
+import com.example.hsknows.MyRecyclerAdapter_historybookmark;
+import com.example.hsknows.MyRecyclerAdapter_message;
 import com.example.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,7 @@ public class MessageFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView recyclerView;
 
     public MessageFragment() {
         // Required empty public constructor
@@ -61,6 +73,37 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.account_message, container, false);
+        View view = inflater.inflate(R.layout.account_message, container, false);
+        recyclerView = view.findViewById(R.id.account_message_recyclerview);
+        initDatas(3);
+        initView();
+        return view;
+    }
+    private void initView() {
+        recyclerView = (RecyclerView)getActivity(). findViewById(R.id.account_history_bookmark_recyclerview);
+    }
+
+    private void initDatas(int kind) {
+        //添加数据
+        List<CardImageInfor_message> list = new ArrayList<>();
+        list.add(new CardImageInfor_message("Title 1", "BLGS", "一阶导， 二阶导， 三阶导， 四阶导， 导导导导", kind));
+        list.add(new CardImageInfor_message("Title 2", "BLGS", "一阶导， 二阶导， 三阶导， 四阶导， 导导导导", kind));
+        list.add(new CardImageInfor_message("Title 3", "BLGS", "一阶导， 二阶导， 三阶导， 四阶导， 导导导导", kind));
+
+        //设置列表显示方式
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //设置列表默认动画效果
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //绑定适配器
+        MyRecyclerAdapter_message myAdapter = new MyRecyclerAdapter_message(list);
+        recyclerView.setAdapter(myAdapter);
+        //列表点击事件
+        myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_message.OnItemClickLitener(){
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "click"+ position +"item", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

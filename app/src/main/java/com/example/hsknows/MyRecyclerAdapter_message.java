@@ -3,13 +3,10 @@ package com.example.hsknows;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hsknows.CardImageInfor;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -18,11 +15,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/10/25.
  */
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
+public class MyRecyclerAdapter_message extends RecyclerView.Adapter<MyRecyclerAdapter_message.ViewHolder> {
 
-    private List<CardImageInfor> list;
+    private List<CardImageInfor_message> list;
 
-    public MyRecyclerAdapter(List<CardImageInfor> list) {
+    public MyRecyclerAdapter_message(List<CardImageInfor_message> list) {
         this.list = list;
     }
 
@@ -47,7 +44,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_history_bookmark_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_message_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -57,7 +54,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.title.setText(list.get(position).getTitle());
         holder.writer.setText(list.get(position).getWriter());
-        final int postions = position;
+        holder.content.setText(list.get(position).getContent());
         if (mOnItemClickLitener!=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,13 +69,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public TextView writer;
-        public ArrayList<String> mark;
-        public ImageButton delete_button;
+        public TextView content;
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.account_history_bookmark_title);
-            writer = (TextView) itemView.findViewById(R.id.account_history_bookmark_writer);
-            delete_button = (ImageButton) itemView.findViewById(R.id.account_history_bookmark_deletebutton);
+            title = (TextView) itemView.findViewById(R.id.account_message_title);
+            writer = (TextView) itemView.findViewById(R.id.account_message_writer);
+            content = (TextView) itemView.findViewById(R.id.account_message_content);
         }
     }
 
