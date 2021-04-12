@@ -25,6 +25,7 @@
         android:layout_marginStart="80dp"
         android:text="@string/building"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/parent_image"
         app:layout_constraintTop_toTopOf="parent" />

@@ -71,6 +71,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:text="一阶导， 二阶导， 三阶导， 四阶导， 导导导导"
+                    android:maxLines="1"
                     android:textColor="@color/button_off"
                     android:textSize="14sp" />
 
