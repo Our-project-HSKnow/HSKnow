@@ -6,11 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -30,6 +25,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.example.hsknows.MyExpandListAdapter;
 import com.example.hsknows.MyExpandableListView;
@@ -131,17 +130,27 @@ public class MenuFragment extends Fragment {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);//我也不知道为啥这么用就好使——wrk
+                        //反正childString[groupPosition][childPosition]就好使
                         startActivity(intent);
                         return true;
                     }
                 });
                 break;
             case "physics":
-
                 groupString = new String[]{" "};
                 childString = new String[][]{{"大学物理", "天体物理学"}};
                 MyExpandableListView expandableListView_physics = (MyExpandableListView)getActivity().findViewById(R.id.physics_list);
                 expandableListView_physics.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                expandableListView_physics.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             case "computerscience":
 
@@ -149,34 +158,75 @@ public class MenuFragment extends Fragment {
                 childString = new String[][]{{"计算机导论","数据结构","C语言程序设计","数据库系统","算法设计"}};
                 MyExpandableListView expandableListView_cs = (MyExpandableListView)getActivity().findViewById(R.id.CS_list);
                 expandableListView_cs.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                expandableListView_cs.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             case "building":
                 groupString = new String[]{" "};
                 childString = new String[][]{{"建设中"}};
                 MyExpandableListView expandableListView_building = (MyExpandableListView)getActivity().findViewById(R.id.building_list);
                 expandableListView_building.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
-
+                expandableListView_building.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             case "economic":
                 groupString = new String[]{" "};
                 childString = new String[][]{{"建设中"}};
-                MyExpandableListView expandableListView_ecomomic = (MyExpandableListView)getActivity().findViewById(R.id.economics_list);
-                expandableListView_ecomomic.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
-
+                MyExpandableListView expandableListView_economic = (MyExpandableListView)getActivity().findViewById(R.id.economics_list);
+                expandableListView_economic.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
+                expandableListView_economic.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             case "electronictechnique":
                 groupString = new String[]{" "};
                 childString = new String[][]{{"建设中"}};
                 MyExpandableListView expandableListView_et = (MyExpandableListView)getActivity().findViewById(R.id.electronictechnique_list);
                 expandableListView_et.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
-
+                expandableListView_et.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             case "politics":
                 groupString = new String[]{" "};
                 childString = new String[][]{{"建设中"}};
                 MyExpandableListView expandableListView_politics = (MyExpandableListView)getActivity().findViewById(R.id.politics_list);
                 expandableListView_politics.setAdapter(new MyExpandListAdapter(getContext(), groupString, childString, kind_of_subject));
-
+                expandableListView_politics.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                        Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
                 break;
             default:
                 Log.e("MainActivity", "subject didn't be totally initialize in the function initcard");

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/ShowSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="这是学科"
+        android:textColor="@color/black"
+        android:textSize="45sp"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="#000000"
+        />
+    <EditText
+        android:id="@+id/ThisIsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:hint="标题..."
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:autoLink="all"
+        />
+    <EditText
+        android:id="@+id/ThisIsText"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:hint="内容..."
+        android:maxLines="8"
+        android:gravity="left"
+        android:textColor="@color/black"
+        />
+    <Button
+        android:id="@+id/Upload"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@drawable/four_round_corner"
+        android:text="上传"
+        android:textSize="22sp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="280dp"/>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/purple_200"
+        android:text="*測試\n進入數據庫"
+        android:id="@+id/ceshileancloud"/>
+
+
+
+
+</LinearLayout>

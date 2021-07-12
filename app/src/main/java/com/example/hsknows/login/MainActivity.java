@@ -1,13 +1,10 @@
 package com.example.hsknows.login;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.litepal.LitePal;
 
 import java.util.List;
+
+import cn.leancloud.LCObject;
 
 //登录界面  name pwd login register 控件的作用如后缀
 public class MainActivity extends AppCompatActivity {
@@ -118,13 +117,54 @@ public class MainActivity extends AppCompatActivity {
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                com.example.hsknows.login.userInformation user = new com.example.hsknows.login.userInformation();
+                //初始化LeanCloud
+
+                userInformation user = new userInformation();
                 user.setUsername(register_name.getText().toString());
                 user.setAccountNumber(register_account.getText().toString());
                 user.setPassword(register_password.getText().toString());
                 user.save();
-                Toast.makeText(com.example.hsknows.login.MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
-                motionLayout.transitionToStart();
+                String rgsr_name=register_name.getText().toString();
+                String rgsr_account=register_account.getText().toString();
+                String rgsr_password=register_password.getText().toString();
+                if(TextUtils.isEmpty(rgsr_name) || TextUtils.isEmpty(rgsr_account) || TextUtils.isEmpty(rgsr_password)){
+                    Toast.makeText(MainActivity.this, "账号内容不能为空", Toast.LENGTH_SHORT).show();
+                }
+                else if(! rgsr_account.matches("\\p{Digit}+")){
+                    //如果賬號不是純數字
+                    //上述用正則表達式判斷
+                    Toast.makeText(MainActivity.this, "賬號account只能使用純數字！", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
+
+                    LCObject new_user=new LCObject("HSKnowsUser");
+                    new_user.put("account",rgsr_account);
+                    new_user.put("name",rgsr_name);
+                    new_user.put("password",rgsr_password);
+                    new_user.saveInBackground().blockingSubscribe();
+                    Log.d("MainActivity","aaaaaaaaaaaaSuccessfully registered哈哈哈哈");
+
+/*
+                    // 将对象保存到云端
+                    new_user.saveInBackground().subscribe(new Observer<LCObject>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCObject todo) {
+                            // 保存成功
+                            Log.d("MainActivity","aaaaaaaaaaaaSuccessfully registered哈哈哈哈");
+                        }
+                        public void onError(Throwable throwable) {
+                            // 异常处理
+                            Looper.prepare();//我也不知道為啥要加這句
+                            Log.d("MainActivity","aaaaaaaaaaaaaaaaaaa失敗");
+                            Looper.loop();
+                        }
+                        public void onComplete() {}
+                    });
+*/
+                    motionLayout.transitionToStart();
+                }
+
             }
         });
 
