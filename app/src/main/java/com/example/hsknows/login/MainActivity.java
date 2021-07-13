@@ -22,6 +22,7 @@ import org.litepal.LitePal;
 import java.util.List;
 
 import cn.leancloud.LCObject;
+import cn.leancloud.LeanCloud;
 
 //登录界面  name pwd login register 控件的作用如后缀
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
     TextView passward;
     TextView log_username;
     TextView log_passward;
+
+    public boolean ifLogin;//是否已經登錄
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
         motionLayout = (MotionLayout)findViewById(R.id.log_motionlayout);
 
         close_button = (Button)findViewById(R.id.log_button_exit);
+
+
+        //如果已經登錄了，就不用在初始化了，但此處邏輯應當再完善----2021.7.12 wrk
+        ifLogin=false;
+        if(!ifLogin){
+            LeanCloud.initialize(this,
+                    "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
+                    "rQW7dM4UUMJauT3S7WAzIEl8",
+                    "https://a47aiwgk.lc-cn-n1-shared.com");
+            ifLogin=true;
+        }
+
 
         //登陆界面
         editText_name=(EditText) findViewById(R.id.edittext_name);
@@ -139,29 +155,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
 
                     LCObject new_user=new LCObject("HSKnowsUser");
-                    new_user.put("account",rgsr_account);
+                    new_user.put("account",Integer.parseInt(rgsr_account));
                     new_user.put("name",rgsr_name);
                     new_user.put("password",rgsr_password);
-                    new_user.saveInBackground().blockingSubscribe();
+                    new_user.saveInBackground().subscribe();
                     Log.d("MainActivity","aaaaaaaaaaaaSuccessfully registered哈哈哈哈");
 
-/*
-                    // 将对象保存到云端
-                    new_user.saveInBackground().subscribe(new Observer<LCObject>() {
-                        public void onSubscribe(Disposable disposable) {}
-                        public void onNext(LCObject todo) {
-                            // 保存成功
-                            Log.d("MainActivity","aaaaaaaaaaaaSuccessfully registered哈哈哈哈");
-                        }
-                        public void onError(Throwable throwable) {
-                            // 异常处理
-                            Looper.prepare();//我也不知道為啥要加這句
-                            Log.d("MainActivity","aaaaaaaaaaaaaaaaaaa失敗");
-                            Looper.loop();
-                        }
-                        public void onComplete() {}
-                    });
-*/
                     motionLayout.transitionToStart();
                 }
 

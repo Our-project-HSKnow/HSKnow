@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.hsknows.Leancloud.MyLeanCloud;
 import com.example.myapplication.R;
 
 public class Post_A_Problem extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class Post_A_Problem extends AppCompatActivity {
     EditText EditContent;//內容的EditText框
 
 
-    Button testsjk;//測試數據庫
+    //Button testsjk;//測試數據庫
 
 
     @Override
@@ -67,6 +66,7 @@ public class Post_A_Problem extends AppCompatActivity {
             }
         });
 
+/*
         testsjk=(Button)findViewById(R.id.ceshileancloud);
         testsjk.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -75,7 +75,7 @@ public class Post_A_Problem extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-
+*/
 
     }
 }
