@@ -60,7 +60,6 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
         notifyItemRemoved(position);
     }
 
-
     /**
      * 初始化布局视图
      */
