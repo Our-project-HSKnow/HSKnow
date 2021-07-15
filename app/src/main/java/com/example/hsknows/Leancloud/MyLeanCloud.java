@@ -26,7 +26,7 @@ public class MyLeanCloud extends AppCompatActivity {
         //下面三行代碼用於測試Leancloud是否好使
         LCObject testObject = new LCObject("TestObject");
         testObject.put("words", "成功了嗎?");
-        testObject.saveInBackground().blockingSubscribe();
+        testObject.saveInBackground().subscribe();
 
         finish();
     }
