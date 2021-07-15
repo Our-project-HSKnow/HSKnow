@@ -88,4 +88,7 @@
     <!--工具箱-->
     <string name="count_tool">计算工具</string>
 
+    <!--合作项目界面-->
+    <string name="mine">我的</string>
+    <string name="project">发现</string>
 </resources>

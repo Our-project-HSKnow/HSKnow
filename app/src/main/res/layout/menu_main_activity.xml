@@ -9,21 +9,31 @@
     app:layoutDescription="@xml/menu_main_fragment_scene2"
     tools:context="com.example.hsknows.MainActivity" >
 
-    <ScrollView
-        android:id="@+id/menu_main_scrollview"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/menu_main_nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/menu_title">
 
-        <LinearLayout
-            android:id="@+id/menu_main_scrollview_LinearLayout"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menu_main_recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
@@ -60,14 +70,14 @@
         app:srcCompat="@drawable/ic_floatingmenu_share" />
 
     <ImageButton
-        android:id="@+id/menu_main_home_button"
+        android:id="@+id/menu_main_postnew_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/edittext_line"
         app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton2"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButton2"
-        app:srcCompat="@drawable/ic_economics" />
+        app:srcCompat="@drawable/ic_baseline_add_black" />
 
     <ImageButton
         android:id="@+id/menu_main_bookmark_button"
@@ -76,7 +86,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/edittext_line"
-        app:layout_constraintBottom_toTopOf="@+id/menu_main_home_button"
+        app:layout_constraintBottom_toTopOf="@+id/menu_main_postnew_button"
         app:layout_constraintEnd_toStartOf="@+id/menu_main_share_button"
         app:srcCompat="@drawable/ic_account_bookmark" />
 
@@ -90,5 +100,20 @@
         android:foreground="@drawable/ic_baseline_navigate_before_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/menu_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/menu_title" />
+
+
+
+
 </androidx.constraintlayout.motion.widget.MotionLayout>
 
