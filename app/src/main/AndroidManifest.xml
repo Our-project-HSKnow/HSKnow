@@ -15,11 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-
+        <activity android:name="com.example.hsknows.MenuFragment.Menu_problem"></activity>
+        <activity android:name="com.example.hsknows.cooperation.Cooperation" />
         <activity
             android:name="com.example.hsknows.Leancloud.MyLeanCloud"
-            android:launchMode="standard"
-             />
+            android:launchMode="standard" />
         <activity
             android:name="com.example.hsknows.MenuFragment.Post_A_Problem"
             android:launchMode="standard" />

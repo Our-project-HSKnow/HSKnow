@@ -6,21 +6,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hsknows.CardImageInfor_problem_card;
+import com.example.hsknows.MyRecyclerAdapter_problem_card;
 import com.example.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Menu_main_Activity extends AppCompatActivity {
 
     ImageButton imgbtn1;//这是那个标着加号的button，点这个发表问题
 
-
+    RecyclerView recyclerView;
+    List<CardImageInfor_problem_card> list = new ArrayList<>();
+    MyRecyclerAdapter_problem_card myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +39,9 @@ public class Menu_main_Activity extends AppCompatActivity {
 
         setContentView(R.layout.menu_main_activity);
         MotionLayout main_layout = (MotionLayout)findViewById(R.id.menu_main_motionlayout);
-        ScrollView menu_main_scrollview = (ScrollView)findViewById(R.id.menu_main_scrollview);
         ImageButton back_button = (ImageButton)findViewById(R.id.menu_main_back_button);
-        LinearLayout menu_main_scrollview_LinearLayout = (LinearLayout)findViewById(R.id.menu_main_scrollview_LinearLayout);
-
-
+        recyclerView = (RecyclerView)findViewById(R.id.menu_main_recycleview);
+        initDatas();
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,9 +58,6 @@ public class Menu_main_Activity extends AppCompatActivity {
         SubjTitle = (TextView)findViewById(R.id.menu_title);
         SubjTitle.setText(SubjName);
 
-
-
-
         imgbtn1 = (ImageButton)findViewById(R.id.menu_main_postnew_button);//imgbtn1点进去是发布一个问题
         imgbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +70,6 @@ public class Menu_main_Activity extends AppCompatActivity {
 
         });
 
-
-        menu_main_scrollview_LinearLayout.addView(inflater.inflate(R.layout.menu_main_activity_card, null));
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -84,6 +86,46 @@ public class Menu_main_Activity extends AppCompatActivity {
             Log.d("Menu_main_Activity", Content);
         }
     }
+
+    private void initDatas() {
+        //添加测试数据
+        for(int i = 0; i < 20; i++)
+        {
+            list.add(new CardImageInfor_problem_card("Title 3", "BLGS", "一阶导， 二阶导， 三阶导， 四阶导， 导导导导"));
+        }
+
+        //设置列表显示方式
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //设置列表默认动画效果
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //绑定适配器
+        myAdapter = new MyRecyclerAdapter_problem_card(list);
+        recyclerView.setAdapter(myAdapter);
+
+        //列表点击事件
+        myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_problem_card.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent =new Intent(Menu_main_Activity. this,Menu_problem.class);
+                intent.putExtra("problem", position);
+                startActivity(intent);//启动Activity
+                finish();
+            }
+        });
+
+    }
+    //添加问题
+    public void addData(String title, String author, String summarization){
+        myAdapter.addData(title, author, summarization);
+    }
+    //删除所有问题
+    public void delDatas(){
+        myAdapter.delData();
+    }
+    //删除最后位置问题
+    public void removeData(){
+        myAdapter.removeData(myAdapter.getItemCount());
+    }
 }
 
 /*
@@ -98,3 +140,4 @@ public class Menu_main_Activity extends AppCompatActivity {
                 e.printStackTrace();
             }
  */
+

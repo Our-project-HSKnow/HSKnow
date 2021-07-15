@@ -1,20 +1,17 @@
 package com.example.hsknows.accountFragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.example.hsknows.CardImageInfor_historybookmark;
 import com.example.hsknows.CardImageInfor_message;
-import com.example.hsknows.MyRecyclerAdapter_historybookmark;
 import com.example.hsknows.MyRecyclerAdapter_message;
 import com.example.myapplication.R;
 
@@ -76,11 +73,7 @@ public class MessageFragment extends Fragment {
         View view = inflater.inflate(R.layout.account_message, container, false);
         recyclerView = view.findViewById(R.id.account_message_recyclerview);
         initDatas(3);
-        initView();
         return view;
-    }
-    private void initView() {
-        recyclerView = (RecyclerView)getActivity(). findViewById(R.id.account_history_bookmark_recyclerview);
     }
 
     private void initDatas(int kind) {
