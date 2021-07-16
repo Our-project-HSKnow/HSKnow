@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 
+import com.example.hsknows.Leancloud.AccountSettings;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 String rgsr_name=register_name.getText().toString();
                 String rgsr_account=register_account.getText().toString();
                 String rgsr_password=register_password.getText().toString();
+                Number curr_account=Integer.parseInt(rgsr_account);
                 if(TextUtils.isEmpty(rgsr_name) || TextUtils.isEmpty(rgsr_account) || TextUtils.isEmpty(rgsr_password)){
                     Toast.makeText(MainActivity.this, "账号内容不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -151,16 +153,20 @@ public class MainActivity extends AppCompatActivity {
                     //上述用正則表達式判斷
                     Toast.makeText(MainActivity.this, "賬號account只能使用純數字！", Toast.LENGTH_SHORT).show();
                 }
+                else if(AccountSettings.IfExist(curr_account)){
+                    //如果賬號已經存在了
+                    Toast.makeText(MainActivity.this, "該賬號已被註冊，請直接登錄或換一個賬號註冊。", Toast.LENGTH_SHORT).show();
+                }
                 else{
-                    Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
+
 
                     LCObject new_user=new LCObject("HSKnowsUser");
                     new_user.put("account",Integer.parseInt(rgsr_account));
                     new_user.put("name",rgsr_name);
                     new_user.put("password",rgsr_password);
                     new_user.saveInBackground().subscribe();
-                    Log.d("MainActivity","aaaaaaaaaaaaSuccessfully registered哈哈哈哈");
 
+                    Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
                     motionLayout.transitionToStart();
                 }
 

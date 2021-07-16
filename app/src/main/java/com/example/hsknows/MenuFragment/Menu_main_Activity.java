@@ -86,15 +86,3 @@ public class Menu_main_Activity extends AppCompatActivity {
     }
 }
 
-/*
-//存儲文件
-            String filename = "myproblem";
-            FileOutputStream outputStream;
-            try {
-                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                outputStream.write(Title.getBytes());
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
- */
