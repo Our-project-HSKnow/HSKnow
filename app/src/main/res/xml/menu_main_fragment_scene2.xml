@@ -52,7 +52,7 @@
             android:layout_width="417dp"
             android:layout_height="99dp"
             android:id="@+id/edge"
-            motion:layout_constraintBottom_toTopOf="@+id/menu_main_scrollview"
+            motion:layout_constraintBottom_toTopOf="@+id/menu_main_recycleview"
             motion:layout_editor_absoluteX="-3dp"
             motion:layout_editor_absoluteY="41dp" />
     </ConstraintSet>
