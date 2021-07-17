@@ -198,7 +198,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_name"
-                android:hint="账号只能由数字组成"/>
+                android:hint="純數字，且不能以0作为开头"/>
 
             <TextView
                 android:id="@+id/account"

@@ -1,0 +1,49 @@
+<resources>
+
+    <string name="app_name">ThinkMap</string>
+    <string name="app_project">ThinkMap 让思维更有趣 </string>
+
+    <string name="app_title">Think Map</string>
+    <string name="my_plan">My Plan</string>
+    <string name="add_a_same_floor_node">Add a same floor node.</string>
+    <string name="null_node">null_node</string>
+    <string name="add_a_sub_node">Add a sub node.</string>
+    <string name="edit_node">Edit Node</string>
+    <string name="title_add_sub_node">add SubNode</string>
+    <string name="input_a_new_node">input a new node</string>
+    <string name="enter">Enter</string>
+
+    <!--tab menu-->
+    <string name="tab_sub_node">子项目</string>
+    <string name="tab_node">新节点</string>
+    <string name="tab_front_view">重置视角</string>
+    <string name="tab_code_mode">代码模式</string>
+    <string name="delete">删除</string>
+    <string name="cannot_add_node">You can not add a peer node to a root node!</string>
+    <string name="save_file">保存文件</string>
+    <string name="no">否</string>
+    <string name="save">保存</string>
+    <string name="file_destroyed">File has been destroyed,Please delete!</string>
+    <string name="denied_write_storage">You have denied access to WRITE_EXTERNAL_STORAGE!</string>
+    <string name="trans_item">trans_item</string>
+
+    <string name="defualt_my_plan">我的项目</string>
+    <string name="unkown_error">unknow error!</string>
+    <string name="denied_read_storage">you denied read storage permission!</string>
+    <string name="stroage_permission">Sorry, we need the Storage Permission to do that!</string>
+    <string name="same_name_file">Have the same name file!</string>
+    <string name="file_name_empty">The file name is empty!</string>
+    <string name="owant_file_is_empty">OWANT FILE IS EMPTY !</string>
+    <string name="about">About</string>
+    <string name="exit_edit">退出</string>
+    <string name="me_information">Do something interesting.   \n\nzhongowant@gmail.com</string>
+    <string name="eg_owant_file">/OwantMaps/android.owant</string>
+    <string name="new_map">新的项目</string>
+    <string name="about_us">About us</string>
+
+    <string name="cancel">取消</string>
+    <string name="enter_sure">确认</string>
+    <string name="delete_title">Note:\tRemove the file ？</string>
+
+
+</resources>

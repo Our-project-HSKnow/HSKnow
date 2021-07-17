@@ -1,9 +1,9 @@
 package com.example.hsknows.login;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +22,11 @@ import org.litepal.LitePal;
 import java.util.List;
 
 import cn.leancloud.LCObject;
+import cn.leancloud.LCQuery;
+import cn.leancloud.LCUser;
 import cn.leancloud.LeanCloud;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 //登录界面  name pwd login register 控件的作用如后缀
 public class MainActivity extends AppCompatActivity {
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean ifLogin;//是否已經登錄
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
 
         close_button = (Button)findViewById(R.id.log_button_exit);
 
+        ifLogin=false;
 
         //如果已經登錄了，就不用在初始化了，但此處邏輯應當再完善----2021.7.12 wrk
-        ifLogin=false;
+
         if(!ifLogin){
             LeanCloud.initialize(this,
                     "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
@@ -109,24 +115,55 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                for(com.example.hsknows.login.userInformation user:allUser){
-                    Log.d("MainActivity",user.getUsername());
-                    Log.d("MainActivity",user.getPassword());
-                    Log.d("MainActivity",editText_name.getText().toString());
-                    Log.d("MainActivity",editText_pwd.getText().toString());
-                    if(user.getUsername().equals(editText_name.getText().toString())&&user.getPassword().equals(editText_pwd.getText().toString())){
-                        Toast.makeText(com.example.hsknows.login.MainActivity.this,"登陆成功",
-                                Toast.LENGTH_SHORT).show();
-                        state[0] = true;
-                        finish();
-                    }
-                    else if(user.getAccountNumber().equals(editText_name.getText().toString())&&user.getPassword().equals(editText_pwd.getText().toString())){
-                        Toast.makeText(com.example.hsknows.login.MainActivity.this,"登陆成功",
-                                Toast.LENGTH_SHORT).show();
-                        state[0] = true;
-                        finish();
-                    }
+                String lgn_name=editText_name.getText().toString();
+                String lgn_pwd=editText_pwd.getText().toString();
+                if(TextUtils.isEmpty(lgn_name) || TextUtils.isEmpty(lgn_pwd)){
+                    Toast.makeText(MainActivity.this, "账号内容不能为空", Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    LCUser.logIn(lgn_name, lgn_pwd).subscribe(new Observer<LCUser>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCUser HSKUser) {
+                            // 登录成功
+                            Toast.makeText(MainActivity.this, "登陸成功", Toast.LENGTH_SHORT).show();
+
+                        }
+                        public void onError(Throwable throwable) {
+                            // 登录失败（可能是密码错误）
+                            Toast.makeText(MainActivity.this, "賬號或密碼錯誤", Toast.LENGTH_SHORT).show();
+                        }
+                        public void onComplete() {}
+                    });
+
+                    LCQuery<LCObject> query = new LCQuery<>("_User");
+                    query.whereEqualTo("username", lgn_name);
+                    query.getFirstInBackground().subscribe(new Observer<LCObject>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCObject HSKUser) {
+                            String nickname=HSKUser.getString("user_nickname");
+
+
+                            //傳入intent
+                            Intent intent1=new Intent();
+                            intent1.putExtra("account",lgn_name);
+                            intent1.putExtra("password",lgn_pwd);
+                            intent1.putExtra("name",nickname);
+                            setResult(RESULT_OK,intent1);
+                            finish();
+
+
+                        }
+                        public void onError(Throwable throwable) {}
+                        public void onComplete() {}
+                    });
+
+
+
+
+
+
+                }
+
             }
         });
 
@@ -134,15 +171,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //初始化LeanCloud
+                boolean ifNotSame=false;//ifNotSane是賬號是否重複的標誌
 
-                userInformation user = new userInformation();
-                user.setUsername(register_name.getText().toString());
-                user.setAccountNumber(register_account.getText().toString());
-                user.setPassword(register_password.getText().toString());
-                user.save();
                 String rgsr_name=register_name.getText().toString();
                 String rgsr_account=register_account.getText().toString();
                 String rgsr_password=register_password.getText().toString();
+
                 if(TextUtils.isEmpty(rgsr_name) || TextUtils.isEmpty(rgsr_account) || TextUtils.isEmpty(rgsr_password)){
                     Toast.makeText(MainActivity.this, "账号内容不能为空", Toast.LENGTH_SHORT).show();
                 }
@@ -152,16 +186,38 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "賬號account只能使用純數字！", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
 
-                    LCObject new_user=new LCObject("HSKnowsUser");
-                    new_user.put("account",Integer.parseInt(rgsr_account));
-                    new_user.put("name",rgsr_name);
-                    new_user.put("password",rgsr_password);
-                    new_user.saveInBackground().subscribe();
-                    Log.d("MainActivity","aaaaaaaaaaaaSuccessfully registered哈哈哈哈");
+                    //创建实例
+                    //這裡的setUsername實際上是賬號
+                    LCUser HSKUser = new LCUser();
 
-                    motionLayout.transitionToStart();
+                    HSKUser.setUsername(rgsr_account);
+                    HSKUser.setPassword(rgsr_password);
+                    HSKUser.put("user_nickname",rgsr_name);
+
+                    HSKUser.signUpInBackground().subscribe(new Observer<LCUser>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCUser HSKUser) {
+                            // 注册成功
+                            Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
+                        }
+                        public void onError(Throwable throwable) {
+                            // 注册失败（通常是因为用户名已被使用）
+                            Toast.makeText(MainActivity.this, "賬號已被使用！請直接登錄或更換賬號以註冊。", Toast.LENGTH_SHORT).show();
+                        }
+                        public void onComplete() {}
+                    });
+
+
+                    //傳入intent，其中parcelable可以傳回一個對象
+                    Intent intent1=new Intent();
+                    intent1.putExtra("account",rgsr_account);
+                    intent1.putExtra("password",rgsr_password);
+                    intent1.putExtra("name",rgsr_name);
+                    setResult(RESULT_OK,intent1);
+                    finish();
+
+                    //motionLayout.transitionToStart();
                 }
 
             }
