@@ -30,9 +30,9 @@ public class Menu_main_Activity extends AppCompatActivity {
 
         setContentView(R.layout.menu_main_activity);
         MotionLayout main_layout = (MotionLayout)findViewById(R.id.menu_main_motionlayout);
-        ScrollView menu_main_scrollview = (ScrollView)findViewById(R.id.menu_main_scrollview);
+        ScrollView menu_main_scrollview = (ScrollView)findViewById(R.id.menu_main_recycleview);
         ImageButton back_button = (ImageButton)findViewById(R.id.menu_main_back_button);
-        LinearLayout menu_main_scrollview_LinearLayout = (LinearLayout)findViewById(R.id.menu_main_scrollview_LinearLayout);
+        LinearLayout menu_main_scrollview_LinearLayout = (LinearLayout)findViewById(R.id.menu_main_recycleview);
 
 
 
@@ -60,8 +60,8 @@ public class Menu_main_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1=new Intent(Menu_main_Activity.this,Post_A_Problem.class);
                 intent1.putExtra("SubjName",SubjName);
-                startActivityForResult(intent1,1);
-                Log.d("Menu_main_Activity","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa111111");
+                startActivity(intent1);
+
             }
 
         });
@@ -73,7 +73,7 @@ public class Menu_main_Activity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("Menu_main_Activity", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2222222");
+
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
 
@@ -86,15 +86,3 @@ public class Menu_main_Activity extends AppCompatActivity {
     }
 }
 
-/*
-//存儲文件
-            String filename = "myproblem";
-            FileOutputStream outputStream;
-            try {
-                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                outputStream.write(Title.getBytes());
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
- */

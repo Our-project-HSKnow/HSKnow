@@ -54,10 +54,7 @@ public class Post_A_Problem extends AppCompatActivity {
                     Toast.makeText(Post_A_Problem.this,"标题或正文不能为空！",Toast.LENGTH_SHORT).show();
                 }else{
 
-                    Intent intent1=new Intent();
-                    intent1.putExtra("BackTitle",title);
-                    intent1.putExtra("BackContent",content);
-                    setResult(RESULT_OK,intent1);
+                    //上傳問題
 
                     finish();
                 }
@@ -66,16 +63,8 @@ public class Post_A_Problem extends AppCompatActivity {
             }
         });
 
-/*
-        testsjk=(Button)findViewById(R.id.ceshileancloud);
-        testsjk.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent intent1=new Intent(Post_A_Problem.this, MyLeanCloud.class);
-                startActivity(intent1);
-            }
-        });
-*/
+
+
 
     }
 }

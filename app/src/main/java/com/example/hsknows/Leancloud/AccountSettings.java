@@ -11,6 +11,7 @@ import java.util.List;
 import cn.leancloud.LCObject;
 import cn.leancloud.LCQuery;
 import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 
@@ -21,24 +22,11 @@ public class AccountSettings {
 
     }
 
+
+
     public static boolean IfExist(Number number){
-        //注意！外界調取這個方法只能調用它，不可調用下面那個
-        int[] counts={0};
-        Log.d("ASs","aaaaaaaaaaaaaaaaaaaa11111");
-
-        counts[0]=GetAccountCounts(number,counts);
-
-        boolean b=false;
-
-        if(counts[0] == 0){ b=false; }
-        else{ b=true; }
-        return b;
-
-    }
-
-    public static int GetAccountCounts(Number number,int[] counts){
         //判斷當前的賬號是否已經存在
-
+        final boolean[] ifSame = {false};
         int num=number.intValue();
 
         Log.d("ASs","aaaaaaaaaaaaaaaaaaaa22222");
@@ -46,15 +34,32 @@ public class AccountSettings {
             LCQuery<LCObject> query = new LCQuery<>("HSKnowsUser");
             query.whereEqualTo("account", num);
             query.findInBackground().subscribe(new Observer<List<LCObject>>() {
-                public void onSubscribe(Disposable disposable) {}
-                public void onNext(List<LCObject> HSKUsers) {
-                    Log.d("ASs","----"+HSKUsers.size());
+
+
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+
                 }
-                public void onError(Throwable throwable) {}
-                public void onComplete() {}
+
+                @Override
+                public void onNext(@NonNull List<LCObject> HSKUsers) {
+                        Log.d("ASs","----"+HSKUsers.size());
+                        ifSame[0] =true;
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+
             });
         }
         Log.d("ASs","aaaaaaaaaaaaaaaaaaaa33333");
-        return counts[0];
+        return ifSame[0];
     }
 }
