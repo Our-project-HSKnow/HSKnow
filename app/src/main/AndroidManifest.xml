@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name="com.example.hsknows.MenuFragment.Menu_problem"></activity>
+        <activity android:name="com.example.hsknows.cooperation.Cooperation_Module"
+            tools:ignore="Instantiatable"/>
+        <activity android:name="com.example.hsknows.MenuFragment.Menu_problem" />
         <activity android:name="com.example.hsknows.cooperation.Cooperation" />
         <activity
             android:name="com.example.hsknows.Leancloud.MyLeanCloud"

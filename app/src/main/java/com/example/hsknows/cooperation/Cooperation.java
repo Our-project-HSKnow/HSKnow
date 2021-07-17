@@ -1,5 +1,6 @@
 package com.example.hsknows.cooperation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,8 @@ public class Cooperation extends AppCompatActivity {
                     case R.id.mine:
                         bottomNavigationView.setVisibility(View.VISIBLE);
                         item.setIcon(R.drawable.ic_buttom_menu_fill);
+                        Intent intent = new Intent(Cooperation.this, Cooperation_Module.class);
+                        startActivity(intent);
                         navController.navigate(R.id.mine);
                         break;
                 }

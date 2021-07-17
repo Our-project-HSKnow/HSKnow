@@ -44,7 +44,26 @@
         app:fab_labelsPosition="left"
         app:fab_size="mini"
         app:layout_constraintBottom_toTopOf="@+id/cooperation_bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cooperation_menu_floating_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/background"
+            app:fab_icon="@drawable/ic_floatingmenu_add"
+            app:fab_size="mini"
+            app:fab_title="新建" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/cooperation_menu_floating_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/background"
+            app:fab_icon="@drawable/ic_floatingmenu_share"
+            app:fab_size="mini"
+            app:fab_title="分享" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
