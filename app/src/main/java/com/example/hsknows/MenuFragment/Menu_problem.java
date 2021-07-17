@@ -92,15 +92,15 @@ public class Menu_problem extends AppCompatActivity {
         });
 
     }
-    //添加问题
+    //添加评论
     public void addData(String title, String author, String content){
         myAdapter.addData(title, author, content);
     }
-    //删除所有问题
+    //删除所有评论
     public void delDatas(){
         myAdapter.delData();
     }
-    //删除最后位置问题
+    //删除最后位置评论
     public void removeData(){
         myAdapter.removeData(myAdapter.getItemCount());
     }
