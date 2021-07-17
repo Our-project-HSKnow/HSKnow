@@ -1,3 +1,4 @@
+include ':ThinkMap'
 include ':ChatRoom'
 include ':app'
 rootProject.name = "HSKnows"
