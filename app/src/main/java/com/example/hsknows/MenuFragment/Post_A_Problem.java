@@ -7,6 +7,7 @@ package com.example.hsknows.MenuFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+
+import java.util.Arrays;
+
+import cn.leancloud.LCUser;
+import cn.leancloud.im.v2.LCIMClient;
+import cn.leancloud.im.v2.LCIMConversation;
+import cn.leancloud.im.v2.LCIMException;
+import cn.leancloud.im.v2.callback.LCIMClientCallback;
+import cn.leancloud.im.v2.callback.LCIMConversationCallback;
+import cn.leancloud.im.v2.callback.LCIMConversationCreatedCallback;
+import cn.leancloud.im.v2.messages.LCIMTextMessage;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class Post_A_Problem extends AppCompatActivity {
     TextView majorTitle;//主標題，顯示在學科名稱的位置上
@@ -55,7 +69,44 @@ public class Post_A_Problem extends AppCompatActivity {
                 }else{
 
                     //上傳問題
-
+                    // 以 LCUser 的用户名和密码登录到存储服务
+                    LCUser.logIn("Tom", "cat!@#123").subscribe(new Observer<LCUser>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCUser user) {
+                            // 登录成功，与服务器连接
+                            LCIMClient client = LCIMClient.getInstance(user);
+                            client.open(new LCIMClientCallback() {
+                                @Override
+                                public void done(final LCIMClient avimClient, LCIMException e) {
+                                    // 执行其他逻辑
+                                    client.createConversation(Arrays.asList("Jerry"), "Tom & Jerry", null, false, true,
+                                            new LCIMConversationCreatedCallback() {
+                                                @Override
+                                                public void done(LCIMConversation conversation, LCIMException e) {
+                                                    if(e == null) {
+                                                        // 创建成功
+                                                        LCIMTextMessage msg = new LCIMTextMessage();
+                                                        msg.setText(content);
+// 发送消息
+                                                        conversation.sendMessage(msg, new LCIMConversationCallback() {
+                                                            @Override
+                                                            public void done(LCIMException e) {
+                                                                if (e == null) {
+                                                                    Log.d("Tom & Jerry", "发送成功！");
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+                        }
+                        public void onError(Throwable throwable) {
+                            // 登录失败（可能是密码错误）
+                        }
+                        public void onComplete() {}
+                    });
                     finish();
                 }
 
