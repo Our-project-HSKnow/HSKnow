@@ -16,6 +16,15 @@
     <ConstraintSet
         android:id="@+id/start">
 
+        <Constraint
+            android:layout_height="0dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_account"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            motion:layout_constraintTop_toBottomOf="@+id/account_header"
+            android:id="@+id/account_center" />
     </ConstraintSet>
     <ConstraintSet
         android:id="@+id/end">

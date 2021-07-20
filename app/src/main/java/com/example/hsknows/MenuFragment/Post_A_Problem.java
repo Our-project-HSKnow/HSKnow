@@ -18,16 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
-import java.util.Arrays;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
+import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
-import cn.leancloud.im.v2.LCIMClient;
-import cn.leancloud.im.v2.LCIMConversation;
-import cn.leancloud.im.v2.LCIMException;
-import cn.leancloud.im.v2.callback.LCIMClientCallback;
-import cn.leancloud.im.v2.callback.LCIMConversationCallback;
-import cn.leancloud.im.v2.callback.LCIMConversationCreatedCallback;
-import cn.leancloud.im.v2.messages.LCIMTextMessage;
+import cn.leancloud.LeanCloud;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -36,6 +32,9 @@ public class Post_A_Problem extends AppCompatActivity {
     Button ButtonOfUpload;//上傳按鈕
     EditText EditTitle;//標題的EditText框
     EditText EditContent;//內容的EditText框
+
+
+    String login_token;//這是個用作登陸的token
 
 
     //Button testsjk;//測試數據庫
@@ -56,6 +55,12 @@ public class Post_A_Problem extends AppCompatActivity {
         EditTitle=(EditText)findViewById(R.id.ThisIsTitle);
         EditContent=(EditText)findViewById(R.id.ThisIsText);
 
+        //登陸leancloud
+        LeanCloud.initialize(this,
+                "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
+                "rQW7dM4UUMJauT3S7WAzIEl8",
+                "https://a47aiwgk.lc-cn-n1-shared.com");
+
         ButtonOfUpload=(Button)findViewById(R.id.Upload);
         ButtonOfUpload.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -69,45 +74,70 @@ public class Post_A_Problem extends AppCompatActivity {
                 }else{
 
                     //上傳問題
-                    // 以 LCUser 的用户名和密码登录到存储服务
-                    LCUser.logIn("Tom", "cat!@#123").subscribe(new Observer<LCUser>() {
+                    boolean authenticated = LCUser.getCurrentUser().isAuthenticated();
+                    if (!authenticated) {
+                        // session token 無效
+                        Toast.makeText(Post_A_Problem.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    //獲取用戶token用於登錄
+
+                        login_token= LCUser.getCurrentUser().getSessionToken();
+                    Log.d("aaaaaaaaaa","***"+login_token);
+
+                    LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
                         public void onSubscribe(Disposable disposable) {}
                         public void onNext(LCUser user) {
-                            // 登录成功，与服务器连接
-                            LCIMClient client = LCIMClient.getInstance(user);
-                            client.open(new LCIMClientCallback() {
-                                @Override
-                                public void done(final LCIMClient avimClient, LCIMException e) {
-                                    // 执行其他逻辑
-                                    client.createConversation(Arrays.asList("Jerry"), "Tom & Jerry", null, false, true,
-                                            new LCIMConversationCreatedCallback() {
-                                                @Override
-                                                public void done(LCIMConversation conversation, LCIMException e) {
-                                                    if(e == null) {
-                                                        // 创建成功
-                                                        LCIMTextMessage msg = new LCIMTextMessage();
-                                                        msg.setText(content);
-// 发送消息
-                                                        conversation.sendMessage(msg, new LCIMConversationCallback() {
-                                                            @Override
-                                                            public void done(LCIMException e) {
-                                                                if (e == null) {
-                                                                    Log.d("Tom & Jerry", "发送成功！");
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            });
+                            // 修改 currentUser
+                            LCUser.changeCurrentUser(user, true);
+                            String uploader_account=user.getUsername();
+
+                            DateFormat currdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String current_time = currdate.format(System.currentTimeMillis());
+
+
+                            // 构建对象
+                            LCObject todo = new LCObject("Question");
+
+                            // 为属性赋值
+                            todo.put("title", title);
+                            todo.put("content", content);
+                            todo.put("uploader_account",uploader_account);
+                            todo.put("time",current_time);
+                            todo.put("subject",SubjName);
+
+
+                            // 将对象保存到云端
+                            todo.saveInBackground().subscribe(new Observer<LCObject>() {
+                                public void onSubscribe(Disposable disposable) {}
+                                public void onNext(LCObject todo) {
+                                    // 成功保存之后，执行其他逻辑
+                                    Log.d("Post_A_Problem","Successfully uploaded!");
+                                    Toast.makeText(Post_A_Problem.this,"上傳問題成功！",Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
+                                public void onError(Throwable throwable) {
+                                    // 异常处理
+                                }
+                                public void onComplete() {}
                             });
+
+
+
                         }
                         public void onError(Throwable throwable) {
-                            // 登录失败（可能是密码错误）
+                            // session token 无效
+                            Toast.makeText(Post_A_Problem.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
                         }
                         public void onComplete() {}
                     });
-                    finish();
+
+
+
+
+
+
+
                 }
 
 

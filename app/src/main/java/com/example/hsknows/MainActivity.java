@@ -3,6 +3,7 @@ package com.example.hsknows;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,11 @@ import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import cn.leancloud.LCUser;
+import cn.leancloud.LeanCloud;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -28,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        //登陸leancloud
+        LeanCloud.initialize(this,
+                "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
+                "rQW7dM4UUMJauT3S7WAzIEl8",
+                "https://a47aiwgk.lc-cn-n1-shared.com");
 
         //主界面及底部导航栏
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -61,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.account:
                         Intent intent1 = new Intent(MainActivity.this, AccountActivity.class);
-                        startActivity(intent1);
+                        startActivityForResult(intent1,4);
                         break;
                     default:
                 }
@@ -83,6 +95,44 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 4:
+                if (resultCode == RESULT_OK) {
+
+
+                    //獲取用戶token用於登錄
+                    String login_token= LCUser.getCurrentUser().getSessionToken();
+                    Log.d("aaaaaaaaaa","***1"+login_token);
+
+
+                    LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCUser user) {
+                            // 修改 currentUser
+                            LCUser.changeCurrentUser(user, true);
+
+                        }
+                        public void onError(Throwable throwable) {
+                            // session token 无效
+                        }
+                        public void onComplete() {}
+                    });
+
+
+                }
+                break;
+            default:
+                break;
+        }
 
     }
 }

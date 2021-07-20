@@ -2,6 +2,7 @@ package com.example.hsknows.accountFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +18,20 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.hsknows.login.userInformation;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import cn.leancloud.LCUser;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 public class AccountActivity extends AppCompatActivity {
+
+    //姓名，賬號、密碼，初始值為空
+    String name="0";
+    String pwd="0";
+    String account="0";
 
 
 
@@ -31,9 +40,10 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_fragment);
 
+
         //返回主界面按钮
-        Button button = (Button) findViewById(R.id.account_back_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button button_to_back = (Button) findViewById(R.id.account_back_button);
+        button_to_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -87,11 +97,7 @@ public class AccountActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
-
-
 
 
     @Override
@@ -104,13 +110,37 @@ public class AccountActivity extends AppCompatActivity {
             //頂部
             TextView nameplace=(TextView)findViewById(R.id.textView_name) ;
 
-            userInformation HSKUser=new userInformation();
+            //獲取用戶token用於登錄
+            String login_token= LCUser.getCurrentUser().getSessionToken();
+            Log.d("aaaaaaaaaa","***1"+login_token);
 
-            String name=data.getStringExtra("name");
-            String pwd=data.getStringExtra("password");
-            String account=data.getStringExtra("account");
-            //名字會顯示在頂部
-            nameplace.setText(name);
+
+            LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
+                public void onSubscribe(Disposable disposable) {}
+                public void onNext(LCUser user) {
+                    // 修改 currentUser
+                    LCUser.changeCurrentUser(user, true);
+
+                    name=user.getString("user_nickname");
+                    Log.d("aaaaaaaaaaaa",name);
+                    //名字會顯示在頂部
+                    nameplace.setText(name);
+                }
+                public void onError(Throwable throwable) {
+                    // session token 无效
+                }
+                public void onComplete() {}
+            });
+
+
         }
     }
+/*
+    //重寫按下返回鍵的方法
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
+*/
+
 }

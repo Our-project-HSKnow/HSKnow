@@ -21,8 +21,6 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-import cn.leancloud.LCObject;
-import cn.leancloud.LCQuery;
 import cn.leancloud.LCUser;
 import cn.leancloud.LeanCloud;
 import io.reactivex.Observer;
@@ -57,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     TextView log_passward;
 
     public boolean ifLogin;//是否已經登錄
+
+    String login_token;
 
 
     @Override
@@ -127,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
                             // 登录成功
                             Toast.makeText(MainActivity.this, "登陸成功", Toast.LENGTH_SHORT).show();
 
+
+                            Intent intent1=new Intent();
+                            setResult(RESULT_OK,intent1);
+                            finish();
+
+
                         }
                         public void onError(Throwable throwable) {
                             // 登录失败（可能是密码错误）
@@ -135,27 +141,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete() {}
                     });
 
-                    LCQuery<LCObject> query = new LCQuery<>("_User");
-                    query.whereEqualTo("username", lgn_name);
-                    query.getFirstInBackground().subscribe(new Observer<LCObject>() {
-                        public void onSubscribe(Disposable disposable) {}
-                        public void onNext(LCObject HSKUser) {
-                            String nickname=HSKUser.getString("user_nickname");
 
-
-                            //傳入intent
-                            Intent intent1=new Intent();
-                            intent1.putExtra("account",lgn_name);
-                            intent1.putExtra("password",lgn_pwd);
-                            intent1.putExtra("name",nickname);
-                            setResult(RESULT_OK,intent1);
-                            finish();
-
-
-                        }
-                        public void onError(Throwable throwable) {}
-                        public void onComplete() {}
-                    });
 
 
 
@@ -200,6 +186,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onNext(LCUser HSKUser) {
                             // 注册成功
                             Toast.makeText(MainActivity.this, "用户创建成功", Toast.LENGTH_SHORT).show();
+
+                            //傳入intent
+                            Intent intent1=new Intent();
+                            setResult(RESULT_OK,intent1);
+                            finish();
+
                         }
                         public void onError(Throwable throwable) {
                             // 注册失败（通常是因为用户名已被使用）
@@ -208,14 +200,6 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete() {}
                     });
 
-
-                    //傳入intent，其中parcelable可以傳回一個對象
-                    Intent intent1=new Intent();
-                    intent1.putExtra("account",rgsr_account);
-                    intent1.putExtra("password",rgsr_password);
-                    intent1.putExtra("name",rgsr_name);
-                    setResult(RESULT_OK,intent1);
-                    finish();
 
                     //motionLayout.transitionToStart();
                 }
