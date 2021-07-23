@@ -3,7 +3,6 @@ package com.example.hsknows;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //獲取用戶token用於登錄
                     String login_token= LCUser.getCurrentUser().getSessionToken();
-                    Log.d("aaaaaaaaaa","***1"+login_token);
+
 
 
                     LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {

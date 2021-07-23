@@ -2,7 +2,6 @@ package com.example.hsknows.accountFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
 import cn.leancloud.LCUser;
+import cn.leancloud.LeanCloud;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -32,6 +32,8 @@ public class AccountActivity extends AppCompatActivity {
     String name="0";
     String pwd="0";
     String account="0";
+    //頂部
+    TextView nameplace;
 
 
 
@@ -39,6 +41,22 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_fragment);
+        //頂部
+        nameplace=(TextView)findViewById(R.id.textView_name) ;
+
+        //設置當前用戶
+        LeanCloud.initialize(this,
+                "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
+                "rQW7dM4UUMJauT3S7WAzIEl8",
+                "https://a47aiwgk.lc-cn-n1-shared.com");
+
+        LCUser currentUser = LCUser.getCurrentUser();
+        if (currentUser != null) {
+            String currName=currentUser.getString("user_nickname");
+            nameplace.setText(currName);
+        } else {
+            nameplace.setText("未登錄···");
+        }
 
 
         //返回主界面按钮
@@ -107,40 +125,52 @@ public class AccountActivity extends AppCompatActivity {
 
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            //頂部
-            TextView nameplace=(TextView)findViewById(R.id.textView_name) ;
+            String login_token = "";
+            boolean ifLogin=data.getBooleanExtra("ifLogin",false);
+            if(!ifLogin){
+                nameplace.setText("未登錄···");
+            }
+            else{
+                LCUser currentUser = LCUser.getCurrentUser();
+                if (currentUser != null) {
+                    //如果用戶是登錄來的，獲取用戶token用於登錄
 
-            //獲取用戶token用於登錄
-            String login_token= LCUser.getCurrentUser().getSessionToken();
-            Log.d("aaaaaaaaaa","***1"+login_token);
+                    login_token= LCUser.getCurrentUser().getSessionToken();
+                    LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCUser user) {
+                            // 修改 currentUser
+                            LCUser.changeCurrentUser(user, true);
+                            name=user.getString("user_nickname");
+                            //名字會顯示在頂部
+                            nameplace.setText(name);
+                        }
+                        public void onError(Throwable throwable) {
+                            // session token 无效
+                        }
+                        public void onComplete() {}
+                    });
+                } else {
+                    //如果用戶是註冊來的，那麼currentUser不知道為什麼就是NULL，幹
 
-
-            LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
-                public void onSubscribe(Disposable disposable) {}
-                public void onNext(LCUser user) {
-                    // 修改 currentUser
-                    LCUser.changeCurrentUser(user, true);
-
-                    name=user.getString("user_nickname");
-                    Log.d("aaaaaaaaaaaa",name);
-                    //名字會顯示在頂部
-                    nameplace.setText(name);
+                    String account=data.getStringExtra("Account");
+                    String pwd=data.getStringExtra("Password");
+                    LCUser.logIn(account, pwd).subscribe(new Observer<LCUser>() {
+                        public void onSubscribe(Disposable disposable) {}
+                        public void onNext(LCUser user) {
+                            name=user.getString("user_nickname");
+                            nameplace.setText(name);
+                        }
+                        public void onError(Throwable throwable) {
+                            // 登录失败（可能是密码错误）
+                        }
+                        public void onComplete() {}
+                    });
                 }
-                public void onError(Throwable throwable) {
-                    // session token 无效
-                }
-                public void onComplete() {}
-            });
-
+            }
 
         }
     }
-/*
-    //重寫按下返回鍵的方法
-    @Override
-    public void onBackPressed(){
-        finish();
-    }
-*/
+
 
 }

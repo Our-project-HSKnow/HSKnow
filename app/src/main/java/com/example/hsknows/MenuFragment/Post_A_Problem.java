@@ -45,6 +45,7 @@ public class Post_A_Problem extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_a_question);
+
         /*接收上一個活動傳遞進來的學科名字，並打印在標題的textview的位置*/
         Intent intent1=getIntent();
         String SubjName=intent1.getStringExtra("SubjName");
@@ -73,64 +74,70 @@ public class Post_A_Problem extends AppCompatActivity {
                     Toast.makeText(Post_A_Problem.this,"标题或正文不能为空！",Toast.LENGTH_SHORT).show();
                 }else{
 
-                    //上傳問題
-                    boolean authenticated = LCUser.getCurrentUser().isAuthenticated();
-                    if (!authenticated) {
-                        // session token 無效
+
+                    LCUser currentUser = LCUser.getCurrentUser();
+
+                    if (currentUser == null) {
                         Toast.makeText(Post_A_Problem.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
                         finish();
                     }
-                    //獲取用戶token用於登錄
+                    else{
+                        //獲取用戶token用於登錄
 
                         login_token= LCUser.getCurrentUser().getSessionToken();
-                    Log.d("aaaaaaaaaa","***"+login_token);
-
-                    LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
-                        public void onSubscribe(Disposable disposable) {}
-                        public void onNext(LCUser user) {
-                            // 修改 currentUser
-                            LCUser.changeCurrentUser(user, true);
-                            String uploader_account=user.getUsername();
-
-                            DateFormat currdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            String current_time = currdate.format(System.currentTimeMillis());
 
 
-                            // 构建对象
-                            LCObject todo = new LCObject("Question");
+                        LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
+                            public void onSubscribe(Disposable disposable) {}
+                            public void onNext(LCUser user) {
+                                // 修改 currentUser
+                                LCUser.changeCurrentUser(user, true);
+                                String uploader_account=user.getUsername();
+                                String uploader_nickname= (String) user.get("user_nickname");
 
-                            // 为属性赋值
-                            todo.put("title", title);
-                            todo.put("content", content);
-                            todo.put("uploader_account",uploader_account);
-                            todo.put("time",current_time);
-                            todo.put("subject",SubjName);
-
-
-                            // 将对象保存到云端
-                            todo.saveInBackground().subscribe(new Observer<LCObject>() {
-                                public void onSubscribe(Disposable disposable) {}
-                                public void onNext(LCObject todo) {
-                                    // 成功保存之后，执行其他逻辑
-                                    Log.d("Post_A_Problem","Successfully uploaded!");
-                                    Toast.makeText(Post_A_Problem.this,"上傳問題成功！",Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                                public void onError(Throwable throwable) {
-                                    // 异常处理
-                                }
-                                public void onComplete() {}
-                            });
+                                DateFormat currdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String current_time = currdate.format(System.currentTimeMillis());
 
 
+                                // 构建对象
+                                LCObject todo = new LCObject("Question");
 
-                        }
-                        public void onError(Throwable throwable) {
-                            // session token 无效
-                            Toast.makeText(Post_A_Problem.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
-                        }
-                        public void onComplete() {}
-                    });
+                                // 为属性赋值
+                                todo.put("title", title);
+                                todo.put("content", content);
+                                todo.put("uploader_account",uploader_account);
+                                todo.put("uploader_nickname",uploader_nickname);
+                                todo.put("time",current_time);
+                                todo.put("subject",SubjName);
+
+
+                                // 将对象保存到云端
+                                todo.saveInBackground().subscribe(new Observer<LCObject>() {
+                                    public void onSubscribe(Disposable disposable) {}
+                                    public void onNext(LCObject todo) {
+                                        // 成功保存之后，执行其他逻辑
+                                        Log.d("Post_A_Problem","Successfully uploaded!");
+                                        Toast.makeText(Post_A_Problem.this,"上傳問題成功！",Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                    public void onError(Throwable throwable) {
+                                        // 异常处理
+                                    }
+                                    public void onComplete() {}
+                                });
+
+
+
+                            }
+                            public void onError(Throwable throwable) {
+                                // session token 无效
+                                Toast.makeText(Post_A_Problem.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
+                            }
+                            public void onComplete() {}
+                        });
+                    }
+
+
 
 
 
