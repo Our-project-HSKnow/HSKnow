@@ -14,7 +14,8 @@
         android:launchMode="standard"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.MyApplication"
+        tools:replace="android:theme">
         <activity android:name="com.example.hsknows.cooperation.Cooperation_Module"
             tools:ignore="Instantiatable"/>
         <activity android:name="com.example.hsknows.MenuFragment.Menu_problem" />
