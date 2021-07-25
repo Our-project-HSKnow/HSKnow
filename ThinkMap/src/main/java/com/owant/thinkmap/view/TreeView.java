@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -280,7 +278,7 @@ public class TreeView extends ViewGroup implements ScaleGestureDetector.OnScaleG
         float width = 2f;
 
         mPaint.setStrokeWidth(dp2px(mContext, width));
-        mPaint.setColor(mContext.getResources().getColor(R.color.chelsea_cucumber));
+        mPaint.setColor(mContext.getResources().getColor(R.color.chelsea_cucumber_light));
 
         int top = from.getTop();
         int formY = top + from.getMeasuredHeight() / 2;

@@ -91,4 +91,9 @@
     <!--合作项目界面-->
     <string name="mine">我的</string>
     <string name="project">发现</string>
+
+    <!--问题界面-->
+    <string name="upvote">点赞</string>
+    <string name="share">分享</string>
+    <string name="collect">收藏</string>
 </resources>

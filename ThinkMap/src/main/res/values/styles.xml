@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/chelsea_cucumber</item>
-        <item name="colorPrimaryDark">@color/chelsea_cucumber</item>
-        <item name="colorAccent">@color/chelsea_cucumber</item>
+        <item name="colorPrimary">@android:color/darker_gray</item>
+        <item name="colorPrimaryDark">@android:color/darker_gray</item>
+        <item name="colorAccent">@android:color/darker_gray</item>
         <!--对于menu的显示为more的图标下-->
         <item name="overlapAnchor">false</item>
         <item name="android:windowBackground">@color/fantasy</item>
@@ -21,9 +21,9 @@
 
     <!--显示ActionBar-->
     <style name="AppWithActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/chelsea_cucumber</item>
-        <item name="colorPrimaryDark">@color/chelsea_cucumber</item>
-        <item name="colorAccent">@color/chelsea_cucumber</item>
+        <item name="colorPrimary">@android:color/darker_gray</item>
+        <item name="colorPrimaryDark">@android:color/darker_gray</item>
+        <item name="colorAccent">@android:color/darker_gray</item>
     </style>
 
     <style name="TabTheme">

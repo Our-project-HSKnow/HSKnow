@@ -22,10 +22,10 @@
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/chelsea_cucumber"
+            android:background="@android:color/darker_gray"
             div:subtitleTextColor="@color/white"
             div:title="WorkSpace"
-            div:titleTextColor="@color/athens_gray"/>
+            div:titleTextColor="@color/athens_gray" />
 
     </androidx.cardview.widget.CardView>
 
