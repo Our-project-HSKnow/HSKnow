@@ -3,10 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
-    <color name="chelsea_cucumber">#94B55A</color>
-    <color name="chalet_green">#5E703D</color>
-
+    <color name="chalet_green">@android:color/darker_gray</color>
+    <color name="chelsea_cucumber_light">#B2000000</color>
+    <color name="chelsea_cucumber">@android:color/darker_gray</color>
     <color name="white">#FFFFFF</color>
     <color name="hint_of_red">#F9F9F9</color>
     <color name="fantasy">#F8F2F2</color>
@@ -21,14 +20,19 @@
     <color name="cornell_red2">#bb0f45</color>
     <color name="jaguar">#2B2B2B</color>
 
-    <color name="sprout">#BFD49A</color>
+
+    <!-->
+
+
+      <color name="sprout">#BFD49A</color>
     <color name="caper">#A8C474</color>
     <color name="highland">#778D4E</color>
 
-    <color name="chelsea_cucumber_light">#E794B55A</color>
 
+    <-->
     <color name="purple_normal">#9932CC</color>
     <color name="purple_pressed">#9F79EE</color>
     <color name="transparent">#00000000</color>
+
 
 </resources>
