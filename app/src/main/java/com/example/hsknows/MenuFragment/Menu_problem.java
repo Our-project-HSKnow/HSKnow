@@ -3,6 +3,7 @@ package com.example.hsknows.MenuFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,16 +20,24 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.leancloud.LCObject;
+import cn.leancloud.LCQuery;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 public class Menu_problem extends AppCompatActivity {
 
     ImageView imageView; //问题图片
-    TextView title; //问题标题
-    TextView author; //问题提出者
-    TextView content; //问题内容
+    TextView place_title; //问题标题
+    TextView place_author; //问题提出者
+    TextView place_content; //问题内容
+    TextView place_time;
+    TextView place_subj;
 
     RecyclerView recyclerView;
     List<CardImageInfor_problem_comment> list = new ArrayList<>(); //评论列表
     MyRecyclerAdapter_problem_comment myAdapter;
+    Button finish_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +47,23 @@ public class Menu_problem extends AppCompatActivity {
         /*
         问题设置
          */
-        title = (TextView)findViewById(R.id.menu_problem_title);
-        author = (TextView)findViewById(R.id.menu_problem_author);
-        content = (TextView)findViewById(R.id.menu_problem_content);
+        place_title = (TextView)findViewById(R.id.menu_problem_title);
+        place_author = (TextView)findViewById(R.id.menu_problem_author);
+        place_content = (TextView)findViewById(R.id.menu_problem_content);
+        place_time = (TextView)findViewById(R.id.menu_problem_time);
+        place_subj = (TextView)findViewById(R.id.menu_problem_subject);
+        finish_button=(Button)findViewById(R.id.finish_btn);
+        finish_button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         // 获得问题具体内容
-        int position = getposition();
-        getProblem(position);
+        String objid = getObjid();
+        getProblem(objid);
 
         /*
         评论设置
@@ -53,17 +73,33 @@ public class Menu_problem extends AppCompatActivity {
         initDatas();
     }
     // 获得intent传入的问题位置
-    private int getposition(){
+    private String getObjid(){
         Intent intent = getIntent();
-        return intent.getIntExtra("problem", -1);
+        return intent.getStringExtra("objid");
     }
 
-    //TODO
+
     //通过传入的点击事件发生位置找到问题具体内容
-    private void getProblem(int position){
-        title.setText("Title");
-        author.setText("BLGS");
-        content.setText("这是一道很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的题目");
+    private void getProblem(String objid){
+        LCQuery<LCObject> query = new LCQuery<>("Question");
+        query.getInBackground(objid).subscribe(new Observer<LCObject>() {
+            public void onSubscribe(Disposable disposable) {}
+            public void onNext(LCObject problem) {
+                String title=problem.getString("title");
+                String content=problem.getString("content");
+                String uploader_nickname="作者："+problem.getString("uploader_nickname");
+                String time_of_upload=problem.getString("time");
+                String subject=problem.getString("subject");
+                place_title.setText(title);
+                place_author.setText(uploader_nickname);
+                place_content.setText(content);
+                place_time.setText(time_of_upload);
+                place_subj.setText(subject);
+            }
+            public void onError(Throwable throwable) {}
+            public void onComplete() {}
+        });
+
     }
 
     // 初始化评论列表

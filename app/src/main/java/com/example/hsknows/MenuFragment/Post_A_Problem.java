@@ -4,6 +4,7 @@ package com.example.hsknows.MenuFragment;
  * 待开发：上传照片
  */
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,8 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
@@ -95,9 +97,10 @@ public class Post_A_Problem extends AppCompatActivity {
                                 String uploader_account=user.getUsername();
                                 String uploader_nickname= (String) user.get("user_nickname");
 
-                                DateFormat currdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                String current_time = currdate.format(System.currentTimeMillis());
-
+                                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                Calendar calendar = Calendar.getInstance();
+                                Date date = calendar.getTime();
+                                String current_time = sdf.format(date);
 
                                 // 构建对象
                                 LCObject todo = new LCObject("Question");

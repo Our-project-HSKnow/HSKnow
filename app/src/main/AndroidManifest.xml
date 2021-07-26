@@ -21,9 +21,6 @@
         <activity android:name="com.example.hsknows.MenuFragment.Menu_problem" />
         <activity android:name="com.example.hsknows.cooperation.Cooperation" />
         <activity
-            android:name="com.example.hsknows.Leancloud.MyLeanCloud"
-            android:launchMode="standard" />
-        <activity
             android:name="com.example.hsknows.MenuFragment.Post_A_Problem"
             android:launchMode="standard" />
         <activity

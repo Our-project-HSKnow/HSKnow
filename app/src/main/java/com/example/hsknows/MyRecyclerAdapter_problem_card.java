@@ -45,6 +45,7 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
     // 增加一个item
     public void addData(String title, String author, String summarization) {
         list.add(new CardImageInfor_problem_card(title, author, summarization));
+
         notifyItemInserted(number);
     }
 

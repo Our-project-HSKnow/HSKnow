@@ -2,7 +2,6 @@ package com.example.hsknows.MenuFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,6 +32,7 @@ public class Menu_main_Activity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<CardImageInfor_problem_card> list = new ArrayList<>();
+    List<String> list_of_objid= new ArrayList<>();//存儲object id 的list
     MyRecyclerAdapter_problem_card myAdapter;
 
     @Override
@@ -104,36 +104,29 @@ public class Menu_main_Activity extends AppCompatActivity {
         query.findInBackground().subscribe(new Observer<List<LCObject>>() {
             public void onSubscribe(Disposable disposable) {}
             public void onNext(List<LCObject> questions) {
-                Log.d("Menu_main_Activity", "aaa---"+String.valueOf(questions.size()));
                 for(int i = 0; i < questions.size(); i++)
                 {
+
+                    list_of_objid.add((String) questions.get(i).getObjectId());
                     String title= (String) questions.get(i).get("title");
-                    String content= (String) questions.get(i).get("title");
+                    String content= (String) questions.get(i).get("content");
                     String summarization;
                     if(content.length() < 20){
-                        summarization=content;
+                        summarization="摘要："+content;
                     }
                     else{
-                        summarization=content.substring(0,20)+"...";
+                        summarization="摘要："+content.substring(0,20)+"...";
                     }
-                    String uploader_nickname= (String) questions.get(i).get("uploader_nickname");
+                    String uploader_nickname= "作者："+(String) questions.get(i).get("uploader_nickname");
+                    addData(""+title+"", ""+uploader_nickname+"", ""+summarization+"");
 
-                    //list.add(new CardImageInfor_problem_card(title, uploader_nickname, summarization));
-                    addData(title, uploader_nickname, summarization);
-
-                    //list.add(new CardImageInfor_problem_card("Title 3", "BLGS", "一阶导， 二阶导， 三阶导， 四阶导， 导导导导"));
                 }
             }
             public void onError(Throwable throwable) {}
             public void onComplete() {}
         });
 
-        /*
-        for(int i = 0; i < 20; i++)
-        {
-            list.add(new CardImageInfor_problem_card("Title 3", "BLGS", "一阶导， 二阶导， 三阶导， 四阶导， 导导导导"));
-        }
-         */
+
 
         //设置列表显示方式
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -148,9 +141,10 @@ public class Menu_main_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent =new Intent(Menu_main_Activity. this,Menu_problem.class);
-                intent.putExtra("problem", position);
+                String objid=list_of_objid.get(position);
+                intent.putExtra("objid", objid);
                 startActivity(intent);//启动Activity
-                finish();
+
             }
         });
 
