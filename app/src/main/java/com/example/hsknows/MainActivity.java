@@ -28,6 +28,10 @@ import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
 
+
+//    private boolean testSucceed;
+//    private CountDownLatch latch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,35 @@ public class MainActivity extends AppCompatActivity {
                 "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
                 "rQW7dM4UUMJauT3S7WAzIEl8",
                 "https://a47aiwgk.lc-cn-n1-shared.com");
+        
+        //主界面搜索功能测试
+//        LCSearchQuery searchQuery = new LCSearchQuery("111");
+//        searchQuery.setClassName("Question");
+//        searchQuery.setLimit(10);
+//        searchQuery.findInBackground().subscribe(new Observer<List<LCObject>>() {
+//            @Override
+//            public void onSubscribe(Disposable disposable) {}
+//
+//            @Override
+//            public void onNext(List<LCObject> results) {
+//                for (LCObject o:results) {
+//                    System.out.println(o);
+//                }
+//                testSucceed = true;
+//                latch.countDown();
+//            }
+//
+//            @Override
+//            public void onError(Throwable throwable) {
+//                throwable.printStackTrace();
+//                testSucceed = true;
+//                latch.countDown();
+//            }
+//
+//            @Override
+//            public void onComplete() {}
+//        });
+
 
         //主界面及底部导航栏
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);

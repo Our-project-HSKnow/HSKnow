@@ -151,15 +151,10 @@ public class WorkSpaceActivity extends BaseActivity implements WorkSpaceContract
         int itemId = item.getItemId();
         if (itemId == R.id.menu_work_space_add_a_map) {
             intentToEditMap();
-        } else if (itemId == R.id.menu_work_space_about) {
-            intentToAboutUs();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void intentToAboutUs() {
-
-    }
 
     /**
      * 请求内存卡权限
