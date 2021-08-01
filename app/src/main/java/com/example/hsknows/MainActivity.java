@@ -3,6 +3,7 @@ package com.example.hsknows;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,22 +22,30 @@ import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
 import cn.leancloud.LeanCloud;
+import cn.leancloud.search.LCSearchQuery;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
 
 
-//    private boolean testSucceed;
-//    private CountDownLatch latch;
+
+      private boolean testSucceed;
+      private static CountDownLatch latch = new CountDownLatch(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        System.out.println("-----test-----");
+        Log.d("test", "onCreate: --test--");
 
         //登陸leancloud
         LeanCloud.initialize(this,
@@ -45,32 +54,34 @@ public class MainActivity extends AppCompatActivity {
                 "https://a47aiwgk.lc-cn-n1-shared.com");
         
         //主界面搜索功能测试
-//        LCSearchQuery searchQuery = new LCSearchQuery("111");
-//        searchQuery.setClassName("Question");
-//        searchQuery.setLimit(10);
-//        searchQuery.findInBackground().subscribe(new Observer<List<LCObject>>() {
-//            @Override
-//            public void onSubscribe(Disposable disposable) {}
-//
-//            @Override
-//            public void onNext(List<LCObject> results) {
-//                for (LCObject o:results) {
-//                    System.out.println(o);
-//                }
-//                testSucceed = true;
-//                latch.countDown();
-//            }
-//
-//            @Override
-//            public void onError(Throwable throwable) {
-//                throwable.printStackTrace();
-//                testSucceed = true;
-//                latch.countDown();
-//            }
-//
-//            @Override
-//            public void onComplete() {}
-//        });
+        LCSearchQuery searchQuery = new LCSearchQuery("11");
+        searchQuery.setClassName("_User");
+        searchQuery.setLimit(10);
+        searchQuery.findInBackground().subscribe(new Observer<List<LCObject>>() {
+            @Override
+            public void onSubscribe(Disposable disposable) {}
+
+            @Override
+            public void onNext(List<LCObject> results) {
+                for (LCObject o:results) {
+                    System.out.println(o);
+                }
+                testSucceed = true;
+                latch.countDown();
+                Log.d("succeed", "onNext: test succeed ");
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                throwable.printStackTrace();
+                testSucceed = true;
+                latch.countDown();
+                Log.d("fail", "onError: ---------test failed  -_-  -----------");
+            }
+
+            @Override
+            public void onComplete() {}
+        });
 
 
         //主界面及底部导航栏
