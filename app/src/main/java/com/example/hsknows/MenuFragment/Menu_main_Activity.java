@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -34,6 +33,35 @@ public class Menu_main_Activity extends AppCompatActivity {
     List<CardImageInfor_problem_card> list = new ArrayList<>();
     List<String> list_of_objid= new ArrayList<>();//存儲object id 的list
     MyRecyclerAdapter_problem_card myAdapter;
+    ImageButton refreshBtn;
+    String SubjName;
+
+
+/*
+    private static final int REFRESH_COMPLETE = 0X110;
+    private SwipeRefreshLayout mSwipeLayout;
+    private ListView mListView;
+    private ArrayAdapter<String> mAdapter;
+    private List<String> mDatas = new ArrayList<String>(Arrays.asList("Java",
+            "Javascript", "C++", "Ruby", "Json", "HTML"));
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case REFRESH_COMPLETE:
+                    mDatas.addAll(Arrays.asList("Lucene", "Canvas", "Bitmap"));
+                    mAdapter.notifyDataSetChanged();
+                    mSwipeLayout.setRefreshing(false);
+                    Toast.makeText(Menu_main_Activity.this, "刷新完毕", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        };
+    };
+ */
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +74,46 @@ public class Menu_main_Activity extends AppCompatActivity {
 
         /*接收上一个活动传递进来的学科名字，并打印在标题的textview的位置*/
         Intent intent1=getIntent();
-        String SubjName=intent1.getStringExtra("SubjName");
+        SubjName=intent1.getStringExtra("SubjName");
 
         TextView SubjTitle;
         SubjTitle = (TextView)findViewById(R.id.menu_title);
         SubjTitle.setText(SubjName);
 
         ImageButton back_button = (ImageButton)findViewById(R.id.menu_main_back_button);
+        refreshBtn=(ImageButton)findViewById(R.id.menu_main_refresh_button);
         recyclerView = (RecyclerView)findViewById(R.id.menu_main_recycleview);
-        initDatas(SubjName);
+        initDatas(SubjName);//加載數據
+/*
+        //設置上滑刷新
+        mListView = (ListView) findViewById(R.id.id_listview);
+        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            public void onRefresh() {
+                mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE, 300);
+
+                Toast.makeText(Menu_main_Activity.this, "正在刷新", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mSwipeLayout.setColorScheme(android.R.color.holo_green_dark,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        mAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, mDatas);
+        mListView.setAdapter(mAdapter);
+ */
+        refreshBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                delDatas();
+                initDatas(SubjName);
+            }
+        });
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Menu_main_Activity.this, "Back", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -71,28 +125,17 @@ public class Menu_main_Activity extends AppCompatActivity {
                 Intent intent1=new Intent(Menu_main_Activity.this,Post_A_Problem.class);
                 intent1.putExtra("SubjName",SubjName);
                 startActivity(intent1);
-
             }
-
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-
-
         if (requestCode == 1 && resultCode == RESULT_OK) {
 
-/*
-            //表示傳回來了標題與內容
-            String Title = data.getStringExtra("BackTitle");
-            String Content = data.getStringExtra("BackContent");
-            Log.d("Menu_main_Activity", Title);
-            Log.d("Menu_main_Activity", Content);
-
- */
         }
     }
 
@@ -104,12 +147,13 @@ public class Menu_main_Activity extends AppCompatActivity {
         query.findInBackground().subscribe(new Observer<List<LCObject>>() {
             public void onSubscribe(Disposable disposable) {}
             public void onNext(List<LCObject> questions) {
-                for(int i = 0; i < questions.size(); i++)
+                for(int i = questions.size()-1; i >=0; i--)
                 {
 
                     list_of_objid.add((String) questions.get(i).getObjectId());
                     String title= (String) questions.get(i).get("title");
                     String content= (String) questions.get(i).get("content");
+                    String time= (String) questions.get(i).get("time");
                     String summarization;
                     if(content.length() < 20){
                         summarization="摘要："+content;
@@ -118,7 +162,7 @@ public class Menu_main_Activity extends AppCompatActivity {
                         summarization="摘要："+content.substring(0,20)+"...";
                     }
                     String uploader_nickname= "作者："+(String) questions.get(i).get("uploader_nickname");
-                    addData(""+title+"", ""+uploader_nickname+"", ""+summarization+"");
+                    addData(title, uploader_nickname, summarization,time);
 
                 }
             }
@@ -150,8 +194,8 @@ public class Menu_main_Activity extends AppCompatActivity {
 
     }
     //添加问题
-    public void addData(String title, String author, String summarization){
-        myAdapter.addData(title, author, summarization);
+    public void addData(String title, String author, String summarization,String time){
+        myAdapter.addData(title, author, summarization,time);
     }
     //删除所有问题
     public void delDatas(){

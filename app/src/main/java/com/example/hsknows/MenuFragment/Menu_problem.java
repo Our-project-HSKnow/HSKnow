@@ -34,6 +34,14 @@ public class Menu_problem extends AppCompatActivity {
     TextView place_time;
     TextView place_subj;
 
+    public String title;
+    public String content;
+    public String uploader_nickname;
+    public String time_of_upload;
+    public String subject;
+
+    ImageView place_comment;//評論
+
     RecyclerView recyclerView;
     List<CardImageInfor_problem_comment> list = new ArrayList<>(); //评论列表
     MyRecyclerAdapter_problem_comment myAdapter;
@@ -53,8 +61,10 @@ public class Menu_problem extends AppCompatActivity {
         place_time = (TextView)findViewById(R.id.menu_problem_time);
         place_subj = (TextView)findViewById(R.id.menu_problem_subject);
         finish_button=(Button)findViewById(R.id.finish_btn);
-        finish_button.setOnClickListener(new View.OnClickListener(){
 
+        place_comment=(ImageView)findViewById(R.id.comment);
+
+        finish_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 finish();
@@ -85,13 +95,13 @@ public class Menu_problem extends AppCompatActivity {
         query.getInBackground(objid).subscribe(new Observer<LCObject>() {
             public void onSubscribe(Disposable disposable) {}
             public void onNext(LCObject problem) {
-                String title=problem.getString("title");
-                String content=problem.getString("content");
-                String uploader_nickname="作者："+problem.getString("uploader_nickname");
-                String time_of_upload=problem.getString("time");
-                String subject=problem.getString("subject");
+                title=problem.getString("title");
+                content=problem.getString("content");
+                uploader_nickname=problem.getString("uploader_nickname");
+                time_of_upload=problem.getString("time");
+                subject=problem.getString("subject");
                 place_title.setText(title);
-                place_author.setText(uploader_nickname);
+                place_author.setText("作者："+uploader_nickname);
                 place_content.setText(content);
                 place_time.setText(time_of_upload);
                 place_subj.setText(subject);

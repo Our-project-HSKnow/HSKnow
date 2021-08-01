@@ -9,11 +9,13 @@ public class CardImageInfor_problem_card {
     private String title; //卡片标题
     private String author; //题目作者
     private String summarization; //问题概述
+    private String time;
 
-    public CardImageInfor_problem_card(String title, String author, String summarization){
+    public CardImageInfor_problem_card(String title, String author, String summarization,String time){
         this.title = title;
         this.author = author;
         this.summarization = summarization;
+        this.time = time;
     }
 
     public String getTitle(){
@@ -23,6 +25,7 @@ public class CardImageInfor_problem_card {
         return author;
     }
     public String getSummarization() { return summarization;}
+    public String getTime(){return time;}
     public void setTitle(String title){
         this.title = title;
     }
@@ -30,4 +33,5 @@ public class CardImageInfor_problem_card {
         this.author = author;
     }
     public void setSummarization(String summarization) {this.summarization = summarization;}
+    public void setTime(String time){this.time=time;}
 }

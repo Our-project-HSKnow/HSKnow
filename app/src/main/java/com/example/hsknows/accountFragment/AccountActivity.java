@@ -28,7 +28,7 @@ import io.reactivex.disposables.Disposable;
 
 public class AccountActivity extends AppCompatActivity {
 
-    //姓名，賬號、密碼，初始值為空
+    //姓名，賬號、密碼，初始值為0
     String name="0";
     String pwd="0";
     String account="0";

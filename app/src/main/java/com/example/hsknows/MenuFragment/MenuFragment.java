@@ -130,7 +130,7 @@ public class MenuFragment extends Fragment {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                         Intent intent = new Intent(getActivity(), Menu_main_Activity.class);
-                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);//我也不知道为啥这么用就好使——wrk
+                        intent.putExtra("SubjName",childString[groupPosition][childPosition]);//我也不知道为啥这么用就好使
                         //反正childString[groupPosition][childPosition]就好使
                         startActivity(intent);
                         return true;

@@ -7,7 +7,9 @@ package com.example.hsknows.MenuFragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +36,8 @@ public class Post_A_Problem extends AppCompatActivity {
     Button ButtonOfUpload;//上傳按鈕
     EditText EditTitle;//標題的EditText框
     EditText EditContent;//內容的EditText框
+    TextView titleWatcher;//監聽標題字數
+    TextView contentWatcher;//監聽正文字數
 
 
     String login_token;//這是個用作登陸的token
@@ -57,6 +61,39 @@ public class Post_A_Problem extends AppCompatActivity {
         //找到標題和內容的EditText
         EditTitle=(EditText)findViewById(R.id.ThisIsTitle);
         EditContent=(EditText)findViewById(R.id.ThisIsText);
+
+        titleWatcher=(TextView)findViewById(R.id.title_watcher);
+        contentWatcher=(TextView)findViewById(R.id.content_watcher);
+
+        EditTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence text, int start, int before, int count) { }
+
+            @Override
+            public void beforeTextChanged(CharSequence text, int start, int count,int after) { }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+                //edit  输入结束呈现在输入框中的信息
+                int count=edit.toString().length();
+                titleWatcher.setText(count+"/30");
+            }
+        });
+        EditContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence text, int start, int before, int count) { }
+
+            @Override
+            public void beforeTextChanged(CharSequence text, int start, int count,int after) { }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+                //edit  输入结束呈现在输入框中的信息
+                int count=edit.toString().length();
+                contentWatcher.setText(count+"/200");
+            }
+        });
+
 
         //登陸leancloud
         LeanCloud.initialize(this,
@@ -139,14 +176,6 @@ public class Post_A_Problem extends AppCompatActivity {
                             public void onComplete() {}
                         });
                     }
-
-
-
-
-
-
-
-
 
                 }
 

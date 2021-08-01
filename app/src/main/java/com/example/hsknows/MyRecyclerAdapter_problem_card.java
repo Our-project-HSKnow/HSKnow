@@ -43,8 +43,8 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
     }
 
     // 增加一个item
-    public void addData(String title, String author, String summarization) {
-        list.add(new CardImageInfor_problem_card(title, author, summarization));
+    public void addData(String title, String author, String summarization,String time) {
+        list.add(new CardImageInfor_problem_card(title, author, summarization, time));
 
         notifyItemInserted(number);
     }
@@ -52,7 +52,7 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
     //删除所有item
     public void delData(){
         list.clear();
-        notifyAll();
+        //notifyAll();
     }
 
     // 删除对应item
@@ -78,6 +78,7 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
         holder.title.setText(list.get(position).getTitle());
         holder.author.setText(list.get(position).getAuthor());
         holder.summarization.setText(list.get(position).getSummarization());
+        holder.time.setText(list.get(position).getTime());
         if (mOnItemClickLitener!=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,11 +94,13 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
         public TextView title;
         public TextView author;
         public TextView summarization;
+        public TextView time;
         public ViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.menu_problem_card_title);
             author = (TextView) itemView.findViewById(R.id.menu_problem_card_author);
             summarization = (TextView) itemView.findViewById(R.id.menu_problem_card_summarization);
+            time = (TextView) itemView.findViewById(R.id.menu_problem_card_time);
         }
     }
 
