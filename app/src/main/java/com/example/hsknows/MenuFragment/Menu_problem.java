@@ -80,6 +80,7 @@ public class Menu_problem extends AppCompatActivity {
          */
 
         recyclerView = (RecyclerView)findViewById(R.id.menu_problem_comment_content);
+
         initDatas();
     }
     // 获得intent传入的问题位置

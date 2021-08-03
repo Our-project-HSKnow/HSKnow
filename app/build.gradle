@@ -50,11 +50,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     compile 'com.cjj.materialrefeshlayout:library:1.3.0'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
-
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.2'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.2'
 
     //下面兩行是Leancloud的inplementation  詳情見https://leancloud.cn/docs/sdk_setup-java.html#hash1161901975
     implementation 'cn.leancloud:storage-android:8.0.1'

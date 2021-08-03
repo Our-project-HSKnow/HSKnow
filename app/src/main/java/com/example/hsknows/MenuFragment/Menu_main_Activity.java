@@ -2,10 +2,14 @@ package com.example.hsknows.MenuFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -16,6 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hsknows.CardImageInfor_problem_card;
 import com.example.hsknows.MyRecyclerAdapter_problem_card;
 import com.example.myapplication.R;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +31,8 @@ import cn.leancloud.LCObject;
 import cn.leancloud.LCQuery;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
+import static java.lang.Math.max;
 
 public class Menu_main_Activity extends AppCompatActivity {
 
@@ -36,32 +45,7 @@ public class Menu_main_Activity extends AppCompatActivity {
     ImageButton refreshBtn;
     String SubjName;
 
-
-/*
-    private static final int REFRESH_COMPLETE = 0X110;
-    private SwipeRefreshLayout mSwipeLayout;
-    private ListView mListView;
-    private ArrayAdapter<String> mAdapter;
-    private List<String> mDatas = new ArrayList<String>(Arrays.asList("Java",
-            "Javascript", "C++", "Ruby", "Json", "HTML"));
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            switch (msg.what) {
-                case REFRESH_COMPLETE:
-                    mDatas.addAll(Arrays.asList("Lucene", "Canvas", "Bitmap"));
-                    mAdapter.notifyDataSetChanged();
-                    mSwipeLayout.setRefreshing(false);
-                    Toast.makeText(Menu_main_Activity.this, "刷新完毕", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        };
-    };
- */
-
-
-
-
+    public int listObjHasLoaded = 0;//已經加載內容條數
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,28 +68,37 @@ public class Menu_main_Activity extends AppCompatActivity {
         refreshBtn=(ImageButton)findViewById(R.id.menu_main_refresh_button);
         recyclerView = (RecyclerView)findViewById(R.id.menu_main_recycleview);
         initDatas(SubjName);//加載數據
-/*
-        //設置上滑刷新
-        mListView = (ListView) findViewById(R.id.id_listview);
-        mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            public void onRefresh() {
-                mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE, 300);
 
-                Toast.makeText(Menu_main_Activity.this, "正在刷新", Toast.LENGTH_SHORT).show();
+        RefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+        /*下滑刷新*/
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+                listObjHasLoaded = 0;//刷新時，它自動歸零
+                delDatas();
+                initDatas(SubjName);
             }
         });
-        mSwipeLayout.setColorScheme(android.R.color.holo_green_dark,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-        mAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, mDatas);
-        mListView.setAdapter(mAdapter);
- */
+        /*上滑加載更多數據*/
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                initDatas(SubjName);
+            }
+        });
+
+
+
+        //設置按鈕旋轉
+        final RotateAnimation animation = new RotateAnimation(0.0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration( 900 );//旋轉時間
         refreshBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                refreshBtn.startAnimation( animation );//開始旋轉
+                listObjHasLoaded = 0;//刷新時，它自動歸零
                 delDatas();
                 initDatas(SubjName);
             }
@@ -147,9 +140,13 @@ public class Menu_main_Activity extends AppCompatActivity {
         query.findInBackground().subscribe(new Observer<List<LCObject>>() {
             public void onSubscribe(Disposable disposable) {}
             public void onNext(List<LCObject> questions) {
-                for(int i = questions.size()-1; i >=0; i--)
-                {
 
+                int i=questions.size() -1 -listObjHasLoaded;
+                int end=max(i-10,0);
+                int thisTimeLoaded=i-end;//這次加載了多少條信息
+                listObjHasLoaded+=thisTimeLoaded;
+                for(; i >end; i--)
+                {
                     list_of_objid.add((String) questions.get(i).getObjectId());
                     String title= (String) questions.get(i).get("title");
                     String content= (String) questions.get(i).get("content");
@@ -165,6 +162,14 @@ public class Menu_main_Activity extends AppCompatActivity {
                     addData(title, uploader_nickname, summarization,time);
 
                 }
+                if(thisTimeLoaded <= 0){
+                    Toast.makeText(Menu_main_Activity.this,"没有更多内容了",Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(Menu_main_Activity.this,"加载了"+thisTimeLoaded+"条内容",Toast.LENGTH_SHORT).show();
+                }
+                Log.d("sadsadssa","fefewf");
             }
             public void onError(Throwable throwable) {}
             public void onComplete() {}
