@@ -90,7 +90,7 @@ public class Post_A_Problem extends AppCompatActivity {
             public void afterTextChanged(Editable edit) {
                 //edit  输入结束呈现在输入框中的信息
                 int count=edit.toString().length();
-                contentWatcher.setText(count+"/200");
+                contentWatcher.setText(count+"/400");
             }
         });
 
@@ -112,19 +112,14 @@ public class Post_A_Problem extends AppCompatActivity {
                     //如果標題與內容至少有一個為空，則會認為不能上傳
                     Toast.makeText(Post_A_Problem.this,"标题或正文不能为空！",Toast.LENGTH_SHORT).show();
                 }else{
-
-
                     LCUser currentUser = LCUser.getCurrentUser();
-
                     if (currentUser == null) {
                         Toast.makeText(Post_A_Problem.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else{
                         //獲取用戶token用於登錄
-
                         login_token= LCUser.getCurrentUser().getSessionToken();
-
 
                         LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
                             public void onSubscribe(Disposable disposable) {}

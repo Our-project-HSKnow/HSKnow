@@ -9,11 +9,13 @@ public class CardImageInfor_problem_comment {
     private String time; //发布事件
     private String author; //题目作者
     private String content; //问题概述
+    private int level;//楼数
 
-    public CardImageInfor_problem_comment(String time, String author, String content){
+    public CardImageInfor_problem_comment(String time, String author, String content,int level){
         this.time = time;
         this.author = author;
         this.content = content;
+        this.level=level;
     }
 
     public String getTime(){
@@ -23,6 +25,7 @@ public class CardImageInfor_problem_comment {
         return author;
     }
     public String getContent() { return content;}
+    public int getLevel(){return level;}
     public void setTime(String time){
         this.time = time;
     }
@@ -30,4 +33,5 @@ public class CardImageInfor_problem_comment {
         this.author = author;
     }
     public void setContent(String content) {this.content = content;}
+    public void setLevel(int level) {this.level = level;}
 }

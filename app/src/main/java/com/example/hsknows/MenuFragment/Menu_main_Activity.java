@@ -76,6 +76,7 @@ public class Menu_main_Activity extends AppCompatActivity {
             public void onRefresh(RefreshLayout refreshlayout) {
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
                 listObjHasLoaded = 0;//刷新時，它自動歸零
+                list_of_objid.clear();
                 delDatas();
                 initDatas(SubjName);
             }
@@ -89,8 +90,6 @@ public class Menu_main_Activity extends AppCompatActivity {
             }
         });
 
-
-
         //設置按鈕旋轉
         final RotateAnimation animation = new RotateAnimation(0.0f, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration( 900 );//旋轉時間
@@ -99,6 +98,7 @@ public class Menu_main_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 refreshBtn.startAnimation( animation );//開始旋轉
                 listObjHasLoaded = 0;//刷新時，它自動歸零
+                list_of_objid.clear();
                 delDatas();
                 initDatas(SubjName);
             }
@@ -140,13 +140,18 @@ public class Menu_main_Activity extends AppCompatActivity {
         query.findInBackground().subscribe(new Observer<List<LCObject>>() {
             public void onSubscribe(Disposable disposable) {}
             public void onNext(List<LCObject> questions) {
-
                 int i=questions.size() -1 -listObjHasLoaded;
-                int end=max(i-10,0);
+                int end=max(i-10,-1);
                 int thisTimeLoaded=i-end;//這次加載了多少條信息
                 listObjHasLoaded+=thisTimeLoaded;
+
+                Log.d("Menu_main_Activity","question size:  "+questions.size());
+                Log.d("Menu_main_Activity","i:  "+i);
+                Log.d("Menu_main_Activity","end:  "+end);
+                Log.d("Menu_main_Activity","this time loaded:  "+thisTimeLoaded);
                 for(; i >end; i--)
                 {
+
                     list_of_objid.add((String) questions.get(i).getObjectId());
                     String title= (String) questions.get(i).get("title");
                     String content= (String) questions.get(i).get("content");

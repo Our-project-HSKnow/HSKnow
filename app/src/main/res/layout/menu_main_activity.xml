@@ -127,11 +127,10 @@
 
     <ImageButton
         android:id="@+id/menu_main_refresh_button"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@android:color/transparent"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/icon_refresh"
         app:layout_constraintLeft_toLeftOf="@id/menu_title"
-        app:srcCompat="@drawable/refresh"
         tools:layout_editor_absoluteY="8dp" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

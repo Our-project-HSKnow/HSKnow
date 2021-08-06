@@ -60,13 +60,13 @@
         android:padding="10dp"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:maxLength="200"/>
+        android:maxLength="400"/>
 
     <TextView
         android:id="@+id/content_watcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0/200"
+        android:text="0/400"
         android:layout_marginLeft="340dp"
         android:layout_marginTop="10dp"
         />

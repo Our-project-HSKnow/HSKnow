@@ -43,8 +43,8 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
     }
 
     // 增加一个item
-    public void addData(String title, String author, String content) {
-        list.add(new CardImageInfor_problem_comment(title, author, content));
+    public void addData(String title, String author, String content,int level) {
+        list.add(new CardImageInfor_problem_comment(title, author, content,level));
         notifyItemInserted(number);
     }
 
@@ -76,6 +76,7 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
         holder.time.setText(list.get(position).getTime());
         holder.author.setText(list.get(position).getAuthor());
         holder.content.setText(list.get(position).getContent());
+        holder.level_place.setText(String.valueOf(list.get(position).getLevel()) + "楼");
         if (mOnItemClickLitener!=null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,11 +92,13 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
         public TextView time;
         public TextView author;
         public TextView content;
+        public TextView level_place;
         public ViewHolder(View itemView) {
             super(itemView);
             time = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_time);
             author = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_author);
             content = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_content);
+            level_place = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_level);
         }
     }
 
