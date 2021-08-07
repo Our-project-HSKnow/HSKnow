@@ -51,7 +51,7 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
     //删除所有item
     public void delData(){
         list.clear();
-        notifyAll();
+        //notifyAll();
     }
 
     // 删除对应item

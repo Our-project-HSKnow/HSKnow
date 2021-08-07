@@ -121,13 +121,21 @@
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/menu_problem_comment_content"
+                    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                        android:id="@+id/refreshLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scrollbars="vertical">
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    </androidx.recyclerview.widget.RecyclerView>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/menu_problem_comment_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scrollbars="vertical">
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
                     <Button
                         android:id="@+id/menu_problem_upvote"
                         android:layout_width="30dp"

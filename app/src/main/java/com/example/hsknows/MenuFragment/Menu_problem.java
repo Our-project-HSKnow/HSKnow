@@ -24,6 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hsknows.CardImageInfor_problem_comment;
 import com.example.hsknows.MyRecyclerAdapter_problem_comment;
 import com.example.myapplication.R;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +71,7 @@ public class Menu_problem extends AppCompatActivity {
 
     public int listObjHasLoaded = 0;//已經加載內容條數
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,13 +112,49 @@ public class Menu_problem extends AppCompatActivity {
         objid = getObjid();
         getProblem(objid);
 
-        /*
-        评论设置
-         */
+        /*评论设置*/
         recyclerView = (RecyclerView)findViewById(R.id.menu_problem_comment_content);
 
         initDatas();
         initComments();
+
+        RefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
+/*
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (mIsRefreshing) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+        });
+ */
+
+        /*下滑刷新*/
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+                listObjHasLoaded = 0;//刷新時，它自動歸零
+                myAdapter.notifyDataSetChanged();
+                delDatas();
+                myAdapter.notifyDataSetChanged();
+                initComments();
+
+            }
+        });
+        /*上滑加載更多數據*/
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+                initComments();
+
+            }
+        });
         //登陸leancloud
         LeanCloud.initialize(this,
                 "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
