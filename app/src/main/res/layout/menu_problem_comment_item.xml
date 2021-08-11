@@ -12,90 +12,66 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="8dp">
 
-    <com.daimajia.swipe.SwipeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/menu_problem_comment_carddelete"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light"
-                android:src="@drawable/ic_delete" />
-
-            <ImageButton
-                android:id="@+id/menu_problem_comment_card_blackmenu"
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:background="@color/black_semi_transparent"
-                android:src="@drawable/ic_ghost" />
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/menu_problem_comment_card_author"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="BLGS"
+                android:textColor="#0099ff"
+                android:textSize="18sp" />
+
+            <!--層數-->
+            <TextView
+                android:id="@+id/menu_problem_comment_card_level"
+
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="290dp"
+                android:layout_marginTop="-25dp"
+                android:layout_marginEnd="20dp"
+                android:text="-1楼"
+                android:textColor="#999999"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/menu_problem_comment_card_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:maxLines="2"
+                android:text="There is the summarization of the problem"
+                android:textColor="#000000" />
 
-                <TextView
-                    android:id="@+id/menu_problem_comment_card_author"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="BLGS"
-                    android:textSize="18sp"
-                    android:textColor="#0099ff"/>
+            <TextView
+                android:id="@+id/menu_problem_comment_card_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:maxLines="1"
+                android:text="2021年7月15日10点34分"
+                android:textAlignment="viewEnd"
+                android:textColor="#999999"
+                android:textSize="10sp" />
 
-                <!--層數-->
-                <TextView
-                    android:id="@+id/menu_problem_comment_card_level"
-
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="290dp"
-                    android:layout_marginTop="-25dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="-1楼"
-                    android:textSize="15sp"
-                    android:textColor="#999999"/>
-
-                <TextView
-                    android:id="@+id/menu_problem_comment_card_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:maxLines="2"
-                    android:text="There is the summarization of the problem"
-                    android:textColor="#000000"/>
-
-                <TextView
-                    android:id="@+id/menu_problem_comment_card_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:maxLines="1"
-                    android:text="2021年7月15日10点34分"
-                    android:textAlignment="viewEnd"
-                    android:textSize="10sp"
-                    android:textColor="#999999"/>
-
-            </LinearLayout>
         </LinearLayout>
-    </com.daimajia.swipe.SwipeLayout>
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>

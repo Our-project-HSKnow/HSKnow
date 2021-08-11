@@ -56,9 +56,9 @@
             motion:layout_editor_absoluteX="-3dp"
             motion:layout_editor_absoluteY="41dp" />
         <Constraint
-            android:layout_height="45dp"
+            android:layout_height="25dp"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="45dp"
+            android:layout_width="25dp"
             android:id="@+id/menu_main_refresh_button"
             motion:layout_constraintStart_toEndOf="@+id/menu_title"
             motion:layout_constraintBottom_toTopOf="@+id/menu_main_nestedScrollView"
@@ -107,9 +107,9 @@
             motion:layout_constraintBottom_toTopOf="@+id/menu_main_postnew_button"
             android:layout_marginEnd="8dp" />
         <Constraint
-            android:layout_height="45dp"
+            android:layout_height="25dp"
             motion:layout_constraintLeft_toLeftOf="@id/menu_title"
-            android:layout_width="45dp"
+            android:layout_width="25dp"
             motion:layout_constraintStart_toEndOf="@+id/menu_title"
             android:id="@+id/menu_main_refresh_button"
             motion:layout_constraintEnd_toEndOf="@+id/menu_main_nestedScrollView"

@@ -88,7 +88,6 @@ public class Menu_problem extends AppCompatActivity {
         place_comment=(EditText)findViewById(R.id.comment_space);
         comment_watcher=(TextView)findViewById(R.id.comment_watcher);
 
-
         finish_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -281,7 +280,8 @@ public class Menu_problem extends AppCompatActivity {
         myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_problem_comment.OnItemClickLitener(){
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(Menu_problem.this, "click"+ position +"item", Toast.LENGTH_SHORT).show();
+                Log.e("sadsadssa","fefewf");
+
             }
         });
 

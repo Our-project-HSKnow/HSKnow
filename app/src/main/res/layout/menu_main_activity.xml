@@ -117,21 +117,23 @@
         android:id="@+id/menu_title"
         android:layout_width="275dp"
         android:layout_height="60dp"
-        android:background="#ffffff"
         android:gravity="center"
         android:text="title of subject"
-        android:textSize="40sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/menu_title" />
 
     <ImageButton
         android:id="@+id/menu_main_refresh_button"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:background="@drawable/icon_refresh"
+        app:layout_constraintBottom_toTopOf="@+id/menu_main_nestedScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/menu_title"
-        tools:layout_editor_absoluteY="8dp" />
+        app:layout_constraintStart_toEndOf="@+id/menu_title"
+        app:layout_constraintTop_toTopOf="@+id/menu_title" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
 

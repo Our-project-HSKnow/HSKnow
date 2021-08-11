@@ -191,27 +191,24 @@
             android:orientation="horizontal">
 
 
-
-
-
-
             <EditText
                 android:id="@+id/comment_space"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/four_round_corner"
-                android:hint=" 评论..."
-                android:textSize="20sp"
                 android:layout_marginEnd="5dp"
-                android:maxLength="300"/>
+                android:background="@drawable/four_vertical_corner_miniradius"
+                android:hint=" 评论..."
+                android:maxLength="300"
+                android:textSize="20sp" />
+
             <Button
                 android:id="@+id/upload_a_comment"
                 android:layout_width="43dp"
                 android:layout_height="27dp"
-                android:background="@drawable/four_round_corner"
                 android:layout_marginTop="0dp"
-                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/four_vertical_corner_miniradius"
                 android:text="上传"
                 android:textSize="15sp" />
             <TextView
