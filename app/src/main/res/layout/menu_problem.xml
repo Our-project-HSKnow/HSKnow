@@ -20,7 +20,11 @@
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/menu_problem_list"
@@ -36,10 +40,9 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="20dp"
                 android:text="Fill a title here"
+                android:textColor="#000000"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                android:textColor="#000000"/>
-
+                android:textStyle="bold" />
 
 
             <TextView
@@ -50,8 +53,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:text="BLGS"
-                android:textSize="15sp"
-                android:textColor="#0099ff"/>
+                android:textColor="#0099ff"
+                android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/menu_problem_subject"
                 android:layout_width="75dp"
@@ -60,8 +64,8 @@
                 android:layout_marginTop="-20dp"
                 android:layout_marginEnd="20dp"
                 android:text="subject"
-                android:textSize="15sp"
-                android:textColor="#595959"/>
+                android:textColor="#595959"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/menu_problem_time"
@@ -71,8 +75,8 @@
                 android:layout_marginTop="-20dp"
                 android:layout_marginEnd="20dp"
                 android:text="time"
-                android:textSize="15sp"
-                android:textColor="#999999"/>
+                android:textColor="#999999"
+                android:textSize="15sp" />
 
 
             <ImageView
@@ -132,10 +136,10 @@
                             android:id="@+id/menu_problem_comment_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scrollbars="vertical">
-                        </androidx.recyclerview.widget.RecyclerView>
+                            android:scrollbars="vertical"></androidx.recyclerview.widget.RecyclerView>
 
                     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
                     <Button
                         android:id="@+id/menu_problem_upvote"
                         android:layout_width="30dp"
@@ -154,13 +158,13 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="50dp"
                         android:layout_marginTop="-35dp"
-                        android:layout_marginBottom="5dp"
                         android:layout_marginEnd="0dp"
+                        android:layout_marginBottom="5dp"
                         app:srcCompat="@drawable/ic_star_outline" />
+
                     <TextView
                         android:layout_width="10dp"
-                        android:layout_height="80dp"
-                        />
+                        android:layout_height="80dp" />
 
                 </LinearLayout>
 
@@ -170,59 +174,72 @@
 
     </ScrollView>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:elevation="5dp"
-        android:paddingTop="2dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="8dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/comment_watcher"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="0/300" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:elevation="5dp"
+            android:paddingTop="2dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp">
 
-            <EditText
-                android:id="@+id/comment_space"
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/four_vertical_corner_miniradius"
-                android:hint=" 评论..."
-                android:maxLength="300"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/upload_a_comment"
-                android:layout_width="43dp"
-                android:layout_height="27dp"
-                android:layout_marginTop="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/four_vertical_corner_miniradius"
-                android:text="上传"
-                android:textSize="15sp" />
-            <TextView
-                android:id="@+id/comment_watcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0/300"
-                android:layout_marginStart="-45dp"
-                android:textSize="11sp"
-                android:layout_marginTop="20dp"/>
+                android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
+                <EditText
+                    android:id="@+id/comment_space"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/four_vertical_corner_miniradius"
+                    android:hint=" 评论..."
+                    android:maxLength="300"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/upload_a_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/four_vertical_corner_miniradius"
+                    android:text="上传"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
