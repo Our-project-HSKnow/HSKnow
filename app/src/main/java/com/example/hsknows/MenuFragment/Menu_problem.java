@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hsknows.CardImageInfor_problem_comment;
+import com.example.hsknows.Leancloud.UselessThings;
 import com.example.hsknows.MyRecyclerAdapter_problem_comment;
 import com.example.myapplication.R;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -60,6 +61,9 @@ public class Menu_problem extends AppCompatActivity {
     public String subject;
     public String objid;
 
+    public List<String> comment_level;
+
+
     EditText place_comment;//評論
     TextView comment_watcher;
     RecyclerView recyclerView;
@@ -70,6 +74,8 @@ public class Menu_problem extends AppCompatActivity {
     String login_token;//這是個用作登陸的token
 
     public int listObjHasLoaded = 0;//已經加載內容條數
+    public int total_comments;
+    public String check_if_reply="回复\\d+楼.*";//用於檢索對話框的內容是否回復某人
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -87,6 +93,7 @@ public class Menu_problem extends AppCompatActivity {
         upload_comment=(Button)findViewById(R.id.upload_a_comment);
         place_comment=(EditText)findViewById(R.id.comment_space);
         comment_watcher=(TextView)findViewById(R.id.comment_watcher);
+
 
 
         finish_button.setOnClickListener(new View.OnClickListener(){
@@ -118,20 +125,8 @@ public class Menu_problem extends AppCompatActivity {
         initDatas();
         initComments();
 
-        RefreshLayout refreshLayout = findViewById(R.id.refreshLayout);
-/*
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (mIsRefreshing) {
-                    return true;
-                } else {
-                    return false;
-                }
+        RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
 
-            }
-        });
- */
 
         /*下滑刷新*/
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -143,7 +138,6 @@ public class Menu_problem extends AppCompatActivity {
                 delDatas();
                 myAdapter.notifyDataSetChanged();
                 initComments();
-
             }
         });
         /*上滑加載更多數據*/
@@ -152,7 +146,6 @@ public class Menu_problem extends AppCompatActivity {
             public void onLoadMore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
                 initComments();
-
             }
         });
         //登陸leancloud
@@ -165,7 +158,7 @@ public class Menu_problem extends AppCompatActivity {
         upload_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String comment=place_comment.getText().toString();
+                String comment=place_comment.getText().toString().trim();
                 if(TextUtils.isEmpty(comment)){
                     //如果標題與內容至少有一個為空，則會認為不能上傳
                     Toast.makeText(Menu_problem.this,"評論不能為空！",Toast.LENGTH_SHORT).show();
@@ -201,6 +194,15 @@ public class Menu_problem extends AppCompatActivity {
                                 todo.put("uploader_nickname",uploader_nickname);
                                 todo.put("time",current_time);
                                 todo.put("question_id",objid);//所屬問題的id
+                                todo.put("its_level",total_comments+1);
+
+                                //判斷它的its_father，並保存
+                                if(comment.matches(check_if_reply)){
+                                    int father=UselessThings.FindItsFather(comment);
+                                    todo.put("its_father",father);
+                                }else{
+                                    todo.put("its_father",0);
+                                }
 
                                 // 将对象保存到云端
                                 todo.saveInBackground().subscribe(new Observer<LCObject>() {
@@ -220,9 +222,6 @@ public class Menu_problem extends AppCompatActivity {
                                     }
                                     public void onComplete() {}
                                 });
-
-
-
                             }
                             public void onError(Throwable throwable) {
                                 // session token 无效
@@ -231,7 +230,6 @@ public class Menu_problem extends AppCompatActivity {
                             public void onComplete() {}
                         });
                     }
-
                 }
             }
         });
@@ -277,11 +275,29 @@ public class Menu_problem extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
 
+
         //列表点击事件
         myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_problem_comment.OnItemClickLitener(){
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(Menu_problem.this, "click"+ position +"item", Toast.LENGTH_SHORT).show();
+
+
+                place_comment.setFocusable(true);
+                place_comment.setFocusableInTouchMode(true);
+                place_comment.requestFocus();
+                InputMethodManager imm = (InputMethodManager) place_comment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                String current_str=place_comment.getText().toString().trim();
+
+                if(current_str.matches(check_if_reply)){
+                    int position_of_cut=current_str.indexOf("：");//必須是中文冒號
+                    current_str=current_str.substring(position_of_cut+1);
+                }
+                current_str="回复"+(total_comments-position)+"楼： "+current_str;
+                place_comment.setText(current_str);
+                place_comment.setSelection(current_str.length());
+
+
             }
         });
 
@@ -293,18 +309,28 @@ public class Menu_problem extends AppCompatActivity {
         query.whereEqualTo("question_id",objid );
         query.findInBackground().subscribe(new Observer<List<LCObject>>() {
             public void onSubscribe(Disposable disposable) {}
-            public void onNext(List<LCObject> questions) {
+            public void onNext(List<LCObject> comments) {
 
-                int i=questions.size() -1 -listObjHasLoaded;
+                total_comments = comments.size();
+
+                int i=comments.size() -1 -listObjHasLoaded;
                 int end=max(i-10,-1);
                 int thisTimeLoaded=i-end;//這次加載了多少條信息
                 listObjHasLoaded+=thisTimeLoaded;
+
+                /*
+                Log.d("Menu_problem","comments size:  "+comments.size());
+                Log.d("Menu_problem","i:  "+i);
+                Log.d("Menu_problem","end:  "+end);
+                Log.d("Menu_problem","this time loaded:  "+thisTimeLoaded);
+                 */
+
+
                 for(; i >end; i--)
                 {
-
-                    String content= (String) questions.get(i).get("content");
-                    String time= (String) questions.get(i).get("time");
-                    String uploader_nickname= "作者："+(String) questions.get(i).get("uploader_nickname");
+                    String content= (String) comments.get(i).get("content");
+                    String time= (String) comments.get(i).get("time");
+                    String uploader_nickname= "作者："+(String) comments.get(i).get("uploader_nickname");
                     addData(time,uploader_nickname,content,i+1);
                 }
                 if(thisTimeLoaded <= 0){
@@ -319,6 +345,7 @@ public class Menu_problem extends AppCompatActivity {
             public void onError(Throwable throwable) {}
             public void onComplete() {}
         });
+
 
 
     }
