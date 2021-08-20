@@ -144,11 +144,13 @@ public class Menu_main_Activity extends AppCompatActivity {
                 int end=max(i-10,-1);
                 int thisTimeLoaded=i-end;//這次加載了多少條信息
                 listObjHasLoaded+=thisTimeLoaded;
-
+/*
                 Log.d("Menu_main_Activity","question size:  "+questions.size());
                 Log.d("Menu_main_Activity","i:  "+i);
                 Log.d("Menu_main_Activity","end:  "+end);
                 Log.d("Menu_main_Activity","this time loaded:  "+thisTimeLoaded);
+
+ */
                 for(; i >end; i--)
                 {
 

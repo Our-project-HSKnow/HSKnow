@@ -54,6 +54,9 @@ public class Menu_problem extends AppCompatActivity {
     TextView place_subj;
     Button upload_comment;
 
+    Button redo;
+    public boolean ifLongMode=false;
+
     public String title;
     public String content;
     public String uploader_nickname;
@@ -62,6 +65,7 @@ public class Menu_problem extends AppCompatActivity {
     public String objid;
 
     public List<String> comment_level;
+
 
 
     EditText place_comment;//評論
@@ -93,6 +97,24 @@ public class Menu_problem extends AppCompatActivity {
         upload_comment=(Button)findViewById(R.id.upload_a_comment);
         place_comment=(EditText)findViewById(R.id.comment_space);
         comment_watcher=(TextView)findViewById(R.id.comment_watcher);
+
+
+        redo=(Button)findViewById(R.id.re_do);
+        if(ifLongMode){
+            redo.setVisibility(View.VISIBLE);
+        }
+        else{
+            redo.setVisibility(View.INVISIBLE);
+        }
+        redo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delDatas();
+                initComments();
+                Toast.makeText(Menu_problem.this, "已经切换至正常模式", Toast.LENGTH_SHORT).show();
+                ifLongMode=false;
+            }
+        });
 
 
 
@@ -215,6 +237,11 @@ public class Menu_problem extends AppCompatActivity {
                                         InputMethodManager imm = (InputMethodManager) Menu_problem.this
                                                 .getSystemService(Context.INPUT_METHOD_SERVICE);
                                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                                        listObjHasLoaded = 0;//刷新時，它自動歸零
+                                        myAdapter.notifyDataSetChanged();
+                                        delDatas();
+                                        myAdapter.notifyDataSetChanged();
+                                        initComments();
 
                                     }
                                     public void onError(Throwable throwable) {
@@ -280,8 +307,6 @@ public class Menu_problem extends AppCompatActivity {
         myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_problem_comment.OnItemClickLitener(){
             @Override
             public void onItemClick(View view, int position) {
-
-
                 place_comment.setFocusable(true);
                 place_comment.setFocusableInTouchMode(true);
                 place_comment.requestFocus();
@@ -299,6 +324,85 @@ public class Menu_problem extends AppCompatActivity {
 
 
             }
+
+            @Override
+            public boolean onItemLongClick(View view, int position) {
+                Toast.makeText(Menu_problem.this,"aaaaa"+position,Toast.LENGTH_SHORT).show();
+
+
+                myAdapter.notifyDataSetChanged();
+                delDatas();
+                myAdapter.notifyDataSetChanged();
+
+                // 隐藏软键盘
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);//这两行是收起软键盘
+                imm.hideSoftInputFromWindow(place_comment.getWindowToken(), 0);
+
+                int itself=listObjHasLoaded-position;//計算所選中的樓層數
+
+                Log.d("dddddddddddddd","listObjHasLoaded is "+listObjHasLoaded);
+                Log.d("dddddddddddddd","position is "+position);
+                Log.d("dddddddddddddd","itself is "+itself);
+
+                LCQuery<LCObject> query = new LCQuery<>("Comment");
+                query.whereEqualTo("question_id",objid );
+
+                query.findInBackground().subscribe(new Observer<List<LCObject>>() {
+                    public void onSubscribe(Disposable disposable) {}
+                    public void onNext(List<LCObject> comments) {
+                        int total = comments.size();
+                        int tree[][] = new int[2][total];
+                        int i;
+                        for(i=0;i<total;i++){
+                            tree[0][i]=comments.get(i).getInt("its_level");
+                            tree[1][i]=comments.get(i).getInt("its_father");
+                        }
+
+                        for(i=0;i<total;i++){
+                            Log.d("aaa111"," "+tree[0][i]+"  "+tree[1][i]);
+                        }
+
+                        int answer[]=UselessThings.FindAllRelatedComments(tree,total, itself);
+                        for(i=0;i<total;i++) {
+                            Log.d("aaa", " " + answer[i]);
+                        }
+
+
+                        LCQuery<LCObject> query = new LCQuery<>("Comment");
+                        query.whereEqualTo("question_id",objid );
+                        query.findInBackground().subscribe(new Observer<List<LCObject>>() {
+                            public void onSubscribe(Disposable disposable) {}
+                            public void onNext(List<LCObject> comments) {
+                                listObjHasLoaded=0;
+                                for(int i:answer) {
+                                    if(i>comments.size()){break;}
+                                    String content= (String) comments.get(i-1).get("content");
+                                    String time= (String) comments.get(i-1).get("time");
+                                    String uploader_nickname= "作者："+(String) comments.get(i-1).get("uploader_nickname");
+                                    addData(time,uploader_nickname,content,i+1-1);
+                                    listObjHasLoaded++;
+                                }
+                                ifLongMode=true;
+                                Toast.makeText(Menu_problem.this,"已经显示与"+ itself +"楼有关的所有评论",Toast.LENGTH_SHORT).show();
+                            }
+                            public void onError(Throwable throwable) {}
+                            public void onComplete() {}
+                        });
+
+
+                    }
+                    public void onError(Throwable throwable) {}
+                    public void onComplete() {}
+                });
+
+
+
+
+
+                return true;
+            }
+
+
         });
 
     }
@@ -318,12 +422,13 @@ public class Menu_problem extends AppCompatActivity {
                 int thisTimeLoaded=i-end;//這次加載了多少條信息
                 listObjHasLoaded+=thisTimeLoaded;
 
-                /*
+/*
                 Log.d("Menu_problem","comments size:  "+comments.size());
                 Log.d("Menu_problem","i:  "+i);
                 Log.d("Menu_problem","end:  "+end);
                 Log.d("Menu_problem","this time loaded:  "+thisTimeLoaded);
-                 */
+                Log.d("Menu_problem","listObjHasLoaded:  "+listObjHasLoaded);
+ */
 
 
                 for(; i >end; i--)
@@ -340,7 +445,6 @@ public class Menu_problem extends AppCompatActivity {
                 else{
                     Toast.makeText(Menu_problem.this,"加载了"+thisTimeLoaded+"条内容",Toast.LENGTH_SHORT).show();
                 }
-                Log.d("sadsadssa","fefewf");
             }
             public void onError(Throwable throwable) {}
             public void onComplete() {}

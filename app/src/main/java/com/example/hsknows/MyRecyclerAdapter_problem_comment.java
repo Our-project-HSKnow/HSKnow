@@ -28,9 +28,12 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
     //新建点击事件接口
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
+        //长按事件
+        boolean onItemLongClick(View view, int position);
     }
 
     private OnItemClickLitener mOnItemClickLitener;
+
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
@@ -60,6 +63,8 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
         notifyItemRemoved(position);
     }
 
+
+
     /**
      * 初始化布局视图
      */
@@ -85,6 +90,17 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
                     mOnItemClickLitener.onItemClick(holder.itemView,pos);
                 }
             });
+        }
+        if (mOnItemClickLitener!=null){
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int pos=holder.getAdapterPosition();
+                    mOnItemClickLitener.onItemLongClick(holder.itemView,pos);
+                    return true;
+                }
+            });
+
         }
     }
 
