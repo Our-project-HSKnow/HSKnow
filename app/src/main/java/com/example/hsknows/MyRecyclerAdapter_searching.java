@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/10/25.
  */
-public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyclerAdapter_problem_card.ViewHolder> {
+public class MyRecyclerAdapter_searching extends RecyclerView.Adapter<MyRecyclerAdapter_searching.ViewHolder> {
 
-    private List<CardImageInfor_problem_card> list;
+    private List<CardImageInfor_searching_card> list;
     int number = 0; //问题数量
 
-    public MyRecyclerAdapter_problem_card(List<CardImageInfor_problem_card> list) {
+    public MyRecyclerAdapter_searching(List<CardImageInfor_searching_card> list) {
         this.list = list;
         number += list.size();
     }
@@ -44,7 +44,7 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
 
     // 增加一个item
     public void addData(String title, String author, String summarization,String time, int reward) {
-        list.add(new CardImageInfor_problem_card(title, author, summarization, time, reward));
+        list.add(new CardImageInfor_searching_card(title, author, summarization, time, reward));
         notifyItemInserted(number);
     }
 
@@ -66,7 +66,7 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_problem_card_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.searching_problem, parent, false);
         return new ViewHolder(view);
     }
 
@@ -98,11 +98,11 @@ public class MyRecyclerAdapter_problem_card extends RecyclerView.Adapter<MyRecyc
         public TextView reward;
         public ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.menu_problem_card_title);
-            author = (TextView) itemView.findViewById(R.id.menu_problem_card_author);
-            summarization = (TextView) itemView.findViewById(R.id.menu_problem_card_summarization);
-            time = (TextView) itemView.findViewById(R.id.menu_problem_card_time);
-            reward = (TextView) itemView.findViewById(R.id.menu_problem_card_reward);
+            title = (TextView) itemView.findViewById(R.id.searching_problem_card_title);
+            author = (TextView) itemView.findViewById(R.id.searching_problem_card_author);
+            summarization = (TextView) itemView.findViewById(R.id.searching_problem_card_summarization);
+            time = (TextView) itemView.findViewById(R.id.searching_problem_card_time);
+            reward = (TextView) itemView.findViewById(R.id.searching_problem_card_reward);
         }
     }
 

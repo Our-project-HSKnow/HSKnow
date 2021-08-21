@@ -5,14 +5,14 @@ package com.example.hsknows;
 这是在问题浏览列表的问题个体
  */
 
-public class CardImageInfor_problem_card {
+public class CardImageInfor_searching_card {
     private String title; //卡片标题
     private String author; //题目作者
     private String summarization; //问题概述
     private String time;
     private int reward;// 悬赏积分
 
-    public CardImageInfor_problem_card(String title, String author, String summarization,String time, int reward){
+    public CardImageInfor_searching_card(String title, String author, String summarization, String time, int reward){
         this.title = title;
         this.author = author;
         this.summarization = summarization;

@@ -166,7 +166,8 @@ public class Menu_main_Activity extends AppCompatActivity {
                         summarization="摘要："+content.substring(0,20)+"...";
                     }
                     String uploader_nickname= "作者："+(String) questions.get(i).get("uploader_nickname");
-                    addData(title, uploader_nickname, summarization,time);
+                    //TODO 这里默认悬赏为 0
+                    addData(title, uploader_nickname, summarization,time, 0);
 
                 }
                 if(thisTimeLoaded <= 0){
@@ -206,8 +207,8 @@ public class Menu_main_Activity extends AppCompatActivity {
 
     }
     //添加问题
-    public void addData(String title, String author, String summarization,String time){
-        myAdapter.addData(title, author, summarization,time);
+    public void addData(String title, String author, String summarization,String time, int reward){
+        myAdapter.addData(title, author, summarization, time, reward);
     }
     //删除所有问题
     public void delDatas(){
