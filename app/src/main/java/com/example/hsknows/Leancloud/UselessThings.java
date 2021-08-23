@@ -1,7 +1,5 @@
 package com.example.hsknows.Leancloud;
 
-import android.util.Log;
-
 import java.util.Arrays;
 
 public class UselessThings {
@@ -35,17 +33,17 @@ public class UselessThings {
     public static int[] FindAllRelatedComments(int[][] tree,int valid_number,int itself){
         int i=0,j;
         int answer[]=new int[valid_number];
-        for(int k=0;k<valid_number;k++){ Log.d("bbb1","  "+answer[k]); }
+       // for(int k=0;k<valid_number;k++){ Log.d("bbb1","  "+answer[k]); }
 
         /*首先，尋找itself的所有父輩*/
         int another_itself=itself;
         while(another_itself != 0){
-            Log.d("ccccc",""+another_itself);
+            //Log.d("ccccc",""+another_itself);
             answer[i]=another_itself;
             another_itself=tree[1][another_itself-1];
             i++;
         }
-        for(int k=0;k<valid_number;k++){ Log.d("bbb2","  "+answer[k]); }
+        //for(int k=0;k<valid_number;k++){ Log.d("bbb2","  "+answer[k]); }
 
         /*然後，尋找itself的所有子輩*/
         for(j=itself+1;j<valid_number;j++){
@@ -55,17 +53,17 @@ public class UselessThings {
             }
         }
 
-        for(int k=0;k<valid_number;k++){ Log.d("bbb3","  "+answer[k]); }
+        //for(int k=0;k<valid_number;k++){ Log.d("bbb3","  "+answer[k]); }
 
         for(;i<valid_number;i++){
             answer[i]=valid_number+1;
         }
 
-        for(int k=0;k<valid_number;k++){ Log.d("bbb4","  "+answer[k]); }
+        //for(int k=0;k<valid_number;k++){ Log.d("bbb4","  "+answer[k]); }
 
         Arrays.sort(answer);
 
-        for(int k=0;k<valid_number;k++){ Log.d("bbb5","  "+answer[k]); }
+        //for(int k=0;k<valid_number;k++){ Log.d("bbb5","  "+answer[k]); }
         return answer;
 
     }

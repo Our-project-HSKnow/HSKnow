@@ -54,7 +54,7 @@ public class Menu_problem extends AppCompatActivity {
     TextView place_subj;
     Button upload_comment;
 
-    Button redo;
+
     public boolean ifLongMode=false;
 
     public String title;
@@ -99,23 +99,6 @@ public class Menu_problem extends AppCompatActivity {
         comment_watcher=(TextView)findViewById(R.id.comment_watcher);
 
 
-        redo=(Button)findViewById(R.id.re_do);
-        if(ifLongMode){
-            redo.setVisibility(View.VISIBLE);
-        }
-        else{
-            redo.setVisibility(View.INVISIBLE);
-        }
-        redo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delDatas();
-                initComments();
-                Toast.makeText(Menu_problem.this, "已经切换至正常模式", Toast.LENGTH_SHORT).show();
-                ifLongMode=false;
-            }
-        });
-
 
 
         finish_button.setOnClickListener(new View.OnClickListener(){
@@ -146,9 +129,7 @@ public class Menu_problem extends AppCompatActivity {
 
         initDatas();
         initComments();
-
         RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
-
 
         /*下滑刷新*/
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -167,7 +148,9 @@ public class Menu_problem extends AppCompatActivity {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
                 refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-                initComments();
+                if(!ifLongMode){
+                    initComments();
+                }
             }
         });
         //登陸leancloud
@@ -287,7 +270,6 @@ public class Menu_problem extends AppCompatActivity {
             public void onError(Throwable throwable) {}
             public void onComplete() {}
         });
-
     }
 
     // 初始化评论列表
@@ -301,7 +283,6 @@ public class Menu_problem extends AppCompatActivity {
         myAdapter = new MyRecyclerAdapter_problem_comment(list);
         recyclerView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
-
 
         //列表点击事件
         myAdapter.setOnItemClickLitener(new MyRecyclerAdapter_problem_comment.OnItemClickLitener(){
@@ -321,27 +302,23 @@ public class Menu_problem extends AppCompatActivity {
                 current_str="回复"+(total_comments-position)+"楼： "+current_str;
                 place_comment.setText(current_str);
                 place_comment.setSelection(current_str.length());
-
-
             }
 
             @Override
             public boolean onItemLongClick(View view, int position) {
-                Toast.makeText(Menu_problem.this,"aaaaa"+position,Toast.LENGTH_SHORT).show();
-
-
-                myAdapter.notifyDataSetChanged();
-                delDatas();
-                myAdapter.notifyDataSetChanged();
-
+                //Toast.makeText(Menu_problem.this,"aaaaa"+position,Toast.LENGTH_SHORT).show();
                 // 隐藏软键盘
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);//这两行是收起软键盘
                 imm.hideSoftInputFromWindow(place_comment.getWindowToken(), 0);
 
-                int itself=listObjHasLoaded-position;//計算所選中的樓層數
-
-                Log.d("dddddddddddddd","listObjHasLoaded is "+listObjHasLoaded);
                 Log.d("dddddddddddddd","position is "+position);
+                Log.d("dddddddddddddd","list size is "+myAdapter.getItemCount());
+                int itself=getLevel(position);//計算所選中的樓層數
+
+                myAdapter.notifyDataSetChanged();
+                delDatas();
+                myAdapter.notifyDataSetChanged();
+                Log.d("dddddddddddddd","listObjHasLoaded is "+listObjHasLoaded);
                 Log.d("dddddddddddddd","itself is "+itself);
 
                 LCQuery<LCObject> query = new LCQuery<>("Comment");
@@ -358,15 +335,11 @@ public class Menu_problem extends AppCompatActivity {
                             tree[1][i]=comments.get(i).getInt("its_father");
                         }
 
-                        for(i=0;i<total;i++){
-                            Log.d("aaa111"," "+tree[0][i]+"  "+tree[1][i]);
-                        }
+                        //for(i=0;i<total;i++){ Log.d("aaa111"," "+tree[0][i]+"  "+tree[1][i]); }
 
                         int answer[]=UselessThings.FindAllRelatedComments(tree,total, itself);
-                        for(i=0;i<total;i++) {
-                            Log.d("aaa", " " + answer[i]);
-                        }
 
+                        //for(i=0;i<total;i++) { Log.d("aaa", " " + answer[i]); }
 
                         LCQuery<LCObject> query = new LCQuery<>("Comment");
                         query.whereEqualTo("question_id",objid );
@@ -449,9 +422,6 @@ public class Menu_problem extends AppCompatActivity {
             public void onError(Throwable throwable) {}
             public void onComplete() {}
         });
-
-
-
     }
     //添加评论
     public void addData(String time, String author, String content,int level){
@@ -465,4 +435,5 @@ public class Menu_problem extends AppCompatActivity {
     public void removeData(){
         myAdapter.removeData(myAdapter.getItemCount());
     }
+    public int getLevel(int position){return myAdapter.getLevelPlace(position);}
 }

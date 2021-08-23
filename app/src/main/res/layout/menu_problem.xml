@@ -139,34 +139,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/menu_problem_comment_title"
 
-                            android:layout_height="wrap_content"
-                            android:layout_width="match_parent"
-                            android:layout_weight="10"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="Comment"
-                            android:textAlignment="center"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
-                        <Button
-                            android:id="@+id/re_do"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_weight="1"
-                            android:text="恢复"
-                            android:background="@drawable/four_round_corner"
-                            android:layout_toRightOf="@id/menu_problem_comment_title"
-                            android:layout_marginLeft="-80dp"
-                            />
+                    <TextView
+                        android:id="@+id/menu_problem_comment_title"
 
-                    </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_width="300dp"
+                        android:layout_weight="10"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Comment"
+                        android:textAlignment="center"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
 
 
                     <com.scwang.smartrefresh.layout.SmartRefreshLayout

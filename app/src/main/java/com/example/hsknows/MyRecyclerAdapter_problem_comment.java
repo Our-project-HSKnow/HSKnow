@@ -1,6 +1,5 @@
 package com.example.hsknows;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,6 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
 
     @Override
     public int getItemCount() {
-        Log.d("Menu_main_Activity","Item.count : "+list.size());
         return list.size();
     }
 
@@ -63,6 +61,10 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
         notifyItemRemoved(position);
     }
 
+    //读取相应位置的楼层
+    public int getLevelPlace(int position){
+        return list.get(position).getLevel();
+    }
 
 
     /**
