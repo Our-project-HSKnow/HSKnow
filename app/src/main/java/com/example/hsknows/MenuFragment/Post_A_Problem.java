@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import cn.leancloud.LCObject;
 import cn.leancloud.LCUser;
 import cn.leancloud.LeanCloud;
 import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 public class Post_A_Problem extends AppCompatActivity {
@@ -38,12 +40,15 @@ public class Post_A_Problem extends AppCompatActivity {
     EditText EditContent;//內容的EditText框
     TextView titleWatcher;//監聽標題字數
     TextView contentWatcher;//監聽正文字數
+    TextView ownCredits;//有多少積分
+    TextView useCredits;//用多少積分
+    SeekBar sb;
+    int credits;//積分
 
 
     String login_token;//這是個用作登陸的token
 
 
-    //Button testsjk;//測試數據庫
 
 
     @Override
@@ -51,6 +56,11 @@ public class Post_A_Problem extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_a_question);
+        //登陸leancloud
+        LeanCloud.initialize(this,
+                "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
+                "rQW7dM4UUMJauT3S7WAzIEl8",
+                "https://a47aiwgk.lc-cn-n1-shared.com");
 
         /*接收上一個活動傳遞進來的學科名字，並打印在標題的textview的位置*/
         Intent intent1=getIntent();
@@ -64,14 +74,34 @@ public class Post_A_Problem extends AppCompatActivity {
 
         titleWatcher=(TextView)findViewById(R.id.title_watcher);
         contentWatcher=(TextView)findViewById(R.id.content_watcher);
+        ownCredits=(TextView)findViewById(R.id.post_problem_owncredits);
+        useCredits=(TextView)findViewById(R.id.post_problem_reward);
+        sb=(SeekBar)findViewById(R.id.post_problem_seekBar);
+
+        //獲取用戶token用於登錄
+        login_token= LCUser.getCurrentUser().getSessionToken();
+        LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) { }
+            @Override
+            public void onNext(@NonNull LCUser user) {
+                credits= (int) user.get("credits");//獲取積分
+                ownCredits.setText("持有积分："+credits);
+                sb.setMax(credits);
+            }
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d("aaaaaaaaaaa","error-");
+            }
+            @Override
+            public void onComplete() { }
+        });
 
         EditTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
             @Override
             public void beforeTextChanged(CharSequence text, int start, int count,int after) { }
-
             @Override
             public void afterTextChanged(Editable edit) {
                 //edit  输入结束呈现在输入框中的信息
@@ -82,10 +112,8 @@ public class Post_A_Problem extends AppCompatActivity {
         EditContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence text, int start, int before, int count) { }
-
             @Override
             public void beforeTextChanged(CharSequence text, int start, int count,int after) { }
-
             @Override
             public void afterTextChanged(Editable edit) {
                 //edit  输入结束呈现在输入框中的信息
@@ -95,11 +123,19 @@ public class Post_A_Problem extends AppCompatActivity {
         });
 
 
-        //登陸leancloud
-        LeanCloud.initialize(this,
-                "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
-                "rQW7dM4UUMJauT3S7WAzIEl8",
-                "https://a47aiwgk.lc-cn-n1-shared.com");
+        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                useCredits.setText("悬赏积分："+progress);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
+
+
 
         ButtonOfUpload=(Button)findViewById(R.id.Upload);
         ButtonOfUpload.setOnClickListener(new View.OnClickListener(){
@@ -120,7 +156,6 @@ public class Post_A_Problem extends AppCompatActivity {
                     else{
                         //獲取用戶token用於登錄
                         login_token= LCUser.getCurrentUser().getSessionToken();
-
                         LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
                             public void onSubscribe(Disposable disposable) {}
                             public void onNext(LCUser user) {
@@ -133,6 +168,20 @@ public class Post_A_Problem extends AppCompatActivity {
                                 Calendar calendar = Calendar.getInstance();
                                 Date date = calendar.getTime();
                                 String current_time = sdf.format(date);
+                                int currProgress = sb.getProgress();
+                                int userCredits= (int) user.get("credits");
+                                userCredits-=currProgress;
+                                user.put("credits",userCredits);
+                                user.saveInBackground().subscribe(new Observer<LCObject>() {
+                                    @Override
+                                    public void onSubscribe(@NonNull Disposable d) { }
+                                    @Override
+                                    public void onNext(@NonNull LCObject lcObject) { }
+                                    @Override
+                                    public void onError(@NonNull Throwable e) { }
+                                    @Override
+                                    public void onComplete() { }
+                                });
 
                                 // 构建对象
                                 LCObject todo = new LCObject("Question");
@@ -144,6 +193,7 @@ public class Post_A_Problem extends AppCompatActivity {
                                 todo.put("uploader_nickname",uploader_nickname);
                                 todo.put("time",current_time);
                                 todo.put("subject",SubjName);
+                                todo.put("reward",currProgress);
 
 
                                 // 将对象保存到云端

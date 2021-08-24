@@ -200,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     HSKUser.setUsername(rgsr_account);
                     HSKUser.setPassword(rgsr_password);
                     HSKUser.put("user_nickname",rgsr_name);
+                    HSKUser.put("credits",0);//初始積分
 
                     HSKUser.signUpInBackground().subscribe(new Observer<LCUser>() {
                         public void onSubscribe(Disposable disposable) {}

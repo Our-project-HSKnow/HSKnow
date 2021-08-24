@@ -50,12 +50,10 @@ public class Menu_main_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         LayoutInflater inflater = LayoutInflater.from(this);
 
         setContentView(R.layout.menu_main_activity);
         MotionLayout main_layout = (MotionLayout)findViewById(R.id.menu_main_motionlayout);
-
         /*接收上一个活动传递进来的学科名字，并打印在标题的textview的位置*/
         Intent intent1=getIntent();
         SubjName=intent1.getStringExtra("SubjName");
@@ -158,6 +156,7 @@ public class Menu_main_Activity extends AppCompatActivity {
                     String title= (String) questions.get(i).get("title");
                     String content= (String) questions.get(i).get("content");
                     String time= (String) questions.get(i).get("time");
+                    int reward=(int) questions.get(i).get("reward");
                     String summarization;
                     if(content.length() < 20){
                         summarization="摘要："+content;
@@ -167,7 +166,7 @@ public class Menu_main_Activity extends AppCompatActivity {
                     }
                     String uploader_nickname= "作者："+(String) questions.get(i).get("uploader_nickname");
                     //TODO 这里默认悬赏为 0
-                    addData(title, uploader_nickname, summarization,time, 0);
+                    addData(title, uploader_nickname, summarization,time, reward);
 
                 }
                 if(thisTimeLoaded <= 0){

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -52,6 +51,7 @@ public class Menu_problem extends AppCompatActivity {
     TextView place_content; //问题内容
     TextView place_time;
     TextView place_subj;
+    TextView place_reward;
     Button upload_comment;
 
 
@@ -63,6 +63,7 @@ public class Menu_problem extends AppCompatActivity {
     public String time_of_upload;
     public String subject;
     public String objid;
+    public int reward;
 
     public List<String> comment_level;
 
@@ -97,7 +98,7 @@ public class Menu_problem extends AppCompatActivity {
         upload_comment=(Button)findViewById(R.id.upload_a_comment);
         place_comment=(EditText)findViewById(R.id.comment_space);
         comment_watcher=(TextView)findViewById(R.id.comment_watcher);
-
+        place_reward=(TextView)findViewById(R.id.menu_problem_reward);
 
 
 
@@ -261,11 +262,13 @@ public class Menu_problem extends AppCompatActivity {
                 uploader_nickname=problem.getString("uploader_nickname");
                 time_of_upload=problem.getString("time");
                 subject=problem.getString("subject");
+                reward= (int) problem.get("reward");
                 place_title.setText(title);
                 place_author.setText("作者："+uploader_nickname);
                 place_content.setText(content);
                 place_time.setText(time_of_upload);
                 place_subj.setText(subject);
+                place_reward.setText("悬赏积分："+reward);
             }
             public void onError(Throwable throwable) {}
             public void onComplete() {}
@@ -299,7 +302,7 @@ public class Menu_problem extends AppCompatActivity {
                     int position_of_cut=current_str.indexOf("：");//必須是中文冒號
                     current_str=current_str.substring(position_of_cut+1);
                 }
-                current_str="回复"+(total_comments-position)+"楼： "+current_str;
+                current_str="回复"+(getLevel(position))+"楼： "+current_str;
                 place_comment.setText(current_str);
                 place_comment.setSelection(current_str.length());
             }
@@ -311,16 +314,14 @@ public class Menu_problem extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);//这两行是收起软键盘
                 imm.hideSoftInputFromWindow(place_comment.getWindowToken(), 0);
 
-                Log.d("dddddddddddddd","position is "+position);
-                Log.d("dddddddddddddd","list size is "+myAdapter.getItemCount());
+                //Log.d("dddddddddddddd","position is "+position);
+                //Log.d("dddddddddddddd","list size is "+myAdapter.getItemCount());
                 int itself=getLevel(position);//計算所選中的樓層數
-
                 myAdapter.notifyDataSetChanged();
                 delDatas();
                 myAdapter.notifyDataSetChanged();
-                Log.d("dddddddddddddd","listObjHasLoaded is "+listObjHasLoaded);
-                Log.d("dddddddddddddd","itself is "+itself);
-
+                //Log.d("dddddddddddddd","listObjHasLoaded is "+listObjHasLoaded);
+                //Log.d("dddddddddddddd","itself is "+itself);
                 LCQuery<LCObject> query = new LCQuery<>("Comment");
                 query.whereEqualTo("question_id",objid );
 
@@ -349,6 +350,10 @@ public class Menu_problem extends AppCompatActivity {
                                 listObjHasLoaded=0;
                                 for(int i:answer) {
                                     if(i>comments.size()){break;}
+                                    if(i==itself){
+                                        //改變背景顏色
+
+                                    }
                                     String content= (String) comments.get(i-1).get("content");
                                     String time= (String) comments.get(i-1).get("time");
                                     String uploader_nickname= "作者："+(String) comments.get(i-1).get("uploader_nickname");
