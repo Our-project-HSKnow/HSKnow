@@ -210,9 +210,6 @@ public class Post_A_Problem extends AppCompatActivity {
                                     }
                                     public void onComplete() {}
                                 });
-
-
-
                             }
                             public void onError(Throwable throwable) {
                                 // session token 无效
@@ -221,15 +218,8 @@ public class Post_A_Problem extends AppCompatActivity {
                             public void onComplete() {}
                         });
                     }
-
                 }
-
-
             }
         });
-
-
-
-
     }
 }

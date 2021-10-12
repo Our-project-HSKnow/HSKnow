@@ -1,6 +1,7 @@
 package com.example.hsknows.login;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.litepal.LitePal;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import cn.leancloud.LCUser;
@@ -89,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         username = (TextView)findViewById(R.id.username);
         account = (TextView)findViewById(R.id.account);
         passward = (TextView)findViewById(R.id.password);
-
 
         LitePal.getDatabase();
 
@@ -196,11 +199,16 @@ public class MainActivity extends AppCompatActivity {
                     //创建实例
                     //這裡的setUsername實際上是賬號
                     LCUser HSKUser=new LCUser();
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
+                    String current_time = sdf.format(date);
 
                     HSKUser.setUsername(rgsr_account);
                     HSKUser.setPassword(rgsr_password);
                     HSKUser.put("user_nickname",rgsr_name);
-                    HSKUser.put("credits",0);//初始積分
+                    HSKUser.put("credits",10);//初始積分10
+                    HSKUser.put("last_time_login",current_time);
 
                     HSKUser.signUpInBackground().subscribe(new Observer<LCUser>() {
                         public void onSubscribe(Disposable disposable) {}

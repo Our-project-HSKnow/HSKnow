@@ -44,7 +44,6 @@ public class UselessThings {
             i++;
         }
         //for(int k=0;k<valid_number;k++){ Log.d("bbb2","  "+answer[k]); }
-
         /*然後，尋找itself的所有子輩*/
         for(j=itself+1;j<valid_number;j++){
             if(IfFather(tree,j,itself)){
@@ -52,20 +51,14 @@ public class UselessThings {
                 i++;
             }
         }
-
         //for(int k=0;k<valid_number;k++){ Log.d("bbb3","  "+answer[k]); }
-
         for(;i<valid_number;i++){
             answer[i]=valid_number+1;
         }
-
         //for(int k=0;k<valid_number;k++){ Log.d("bbb4","  "+answer[k]); }
-
         Arrays.sort(answer);
-
         //for(int k=0;k<valid_number;k++){ Log.d("bbb5","  "+answer[k]); }
         return answer;
-
     }
 
     public static boolean IfFather(int[][] tree,int curr,int itself){

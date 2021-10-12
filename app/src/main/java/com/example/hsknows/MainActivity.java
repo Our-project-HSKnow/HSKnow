@@ -52,6 +52,61 @@ public class MainActivity extends AppCompatActivity {
                 "a47aIWgkSdQF6xSk2j5UPUJl-gzGzoHsz",
                 "rQW7dM4UUMJauT3S7WAzIEl8",
                 "https://a47aiwgk.lc-cn-n1-shared.com");
+/*
+        LCUser currentUser = LCUser.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(MainActivity.this,"請先登錄或註冊賬號！",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            String login_token= LCUser.getCurrentUser().getSessionToken();
+            LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
+                @Override
+                public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) { }
+                @Override
+                public void onNext(@io.reactivex.annotations.NonNull LCUser user) {
+                    String last_time_login= (String) user.get("last_time_login");
+                    int curr_credits=(int) user.get("credits");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
+                    String current_time = sdf.format(date);
+                    if(!last_time_login.substring(0,4).equals(current_time.substring(0,4))){
+                        curr_credits+=10;
+                    }
+                    else if(!last_time_login.substring(5,7).equals(current_time.substring(5,7))){
+                        curr_credits+=10;
+                    }
+                    else if(!last_time_login.substring(8,10).equals(current_time.substring(8,10))){
+                        curr_credits+=10;
+                    }
+                    user.put("credits",curr_credits);
+                    int finalCurr_credits = curr_credits;
+                    user.saveInBackground().subscribe(new Observer<LCObject>() {
+                        @Override
+                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) { }
+                        @Override
+                        public void onNext(@io.reactivex.annotations.NonNull LCObject lcObject) {
+                            Toast.makeText(MainActivity.this,"现有积分："+ finalCurr_credits,Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onError(@io.reactivex.annotations.NonNull Throwable e) { }
+                        @Override
+                        public void onComplete() { }
+                    });
+
+                }
+                @Override
+                public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                    Log.d("bbbbbbbb","error-");
+                }
+                @Override
+                public void onComplete() { }
+            });
+        }
+*/
+
+
+
         
         //主界面搜索功能测试
         LCSearchQuery searchQuery = new LCSearchQuery("11");
@@ -150,27 +205,20 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case 4:
                 if (resultCode == RESULT_OK) {
-
-
                     //獲取用戶token用於登錄
                     String login_token= LCUser.getCurrentUser().getSessionToken();
-
-
 
                     LCUser.becomeWithSessionTokenInBackground(login_token).subscribe(new Observer<LCUser>() {
                         public void onSubscribe(Disposable disposable) {}
                         public void onNext(LCUser user) {
                             // 修改 currentUser
                             LCUser.changeCurrentUser(user, true);
-
                         }
                         public void onError(Throwable throwable) {
                             // session token 无效
                         }
                         public void onComplete() {}
                     });
-
-
                 }
                 break;
             default:

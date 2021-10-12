@@ -5,11 +5,14 @@ package com.example.hsknows;
 这是在问题界面的评论个体
  */
 
+import android.widget.Button;
+
 public class CardImageInfor_problem_comment {
     private String time; //发布事件
     private String author; //题目作者
     private String content; //问题概述
     private int level;//楼数
+    public Button jvbao;
 
     public CardImageInfor_problem_comment(String time, String author, String content,int level){
         this.time = time;

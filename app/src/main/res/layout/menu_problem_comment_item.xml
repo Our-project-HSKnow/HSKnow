@@ -35,6 +35,19 @@
                     android:textColor="#0099ff"
                     android:textSize="18sp" />
 
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginLeft="250dp"
+                    android:id="@+id/jvbaobutton"
+                    android:text="举报"
+                    android:textColor="@color/cornell_red"
+                    android:textSize="13sp"
+                    android:background="@drawable/four_round_corner"/>
+
+
+
                 <!--層數-->
                 <TextView
                     android:id="@+id/menu_problem_comment_card_level"

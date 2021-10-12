@@ -3,6 +3,7 @@ package com.example.hsknows;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -111,13 +112,28 @@ public class MyRecyclerAdapter_problem_comment extends RecyclerView.Adapter<MyRe
         public TextView author;
         public TextView content;
         public TextView level_place;
+        public Button jvbao;
         public ViewHolder(View itemView) {
             super(itemView);
             time = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_time);
             author = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_author);
             content = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_content);
             level_place = (TextView) itemView.findViewById(R.id.menu_problem_comment_card_level);
+            jvbao = (Button) itemView.findViewById(R.id.jvbaobutton);
+
+    /*
+            jvbao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(this,"已举报，会后续为您处理",Toast.LENGTH_SHORT).show();
+                }
+            });
+            
+     */
         }
-    }
+        }
+
+
+
 
 }
